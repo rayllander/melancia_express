@@ -24,16 +24,20 @@ class RegisterPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //Ícone do Sistema
-              Icon(
-                Icons.person,
-                size: 80,
-                color: Theme.of(context).colorScheme.inversePrimary,
+              Positioned(
+                left: 124,
+                top: 83,
+                child: Container(
+                  width: 167,
+                  height: 167,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
               ),
               //Espaço embranco
               const SizedBox(height: 5),
               //Nome do Aplicativo
               const Text(
-                'S O C I A L',
+                'CADASTRO',
                 style: TextStyle(fontSize: 20),
               ),
               //Espaço em branco
@@ -47,19 +51,19 @@ class RegisterPage extends StatelessWidget {
               const SizedBox(height: 10),
               //Input do email
               MyTextField(
-                  hintText: 'E-mail',
+                  hintText: 'Telefone',
                   obscureText: false,
                   controller: controllerEmail),
               const SizedBox(height: 10),
               //Input da senha
               MyTextField(
-                  hintText: 'Senha',
+                  hintText: 'E-mail',
                   obscureText: true,
                   controller: controllerPass),
               const SizedBox(height: 10),
               //Input da confirme a senha
               MyTextField(
-                  hintText: 'Confirme a Senha',
+                  hintText: 'Senha',
                   obscureText: true,
                   controller: controllerConfirmPass),
 
@@ -67,7 +71,7 @@ class RegisterPage extends StatelessWidget {
               const SizedBox(height: 20),
               //Botão de login
               MyButton(
-                buttonText: 'Registrar',
+                buttonText: 'SALVAR',
                 onTapButton: () {
                   displayMessage('Registrado', context);
                 },

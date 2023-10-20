@@ -26,6 +26,7 @@ class SocialApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/forgotPass': (context) => ForgotPage(),
         '/homePage': (context) => const HomePage(),
+        '/inicio': (context) => inicioPage(),
       },
     );
   }

@@ -21,16 +21,18 @@ class ForgotPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //Ícone do Sistema
-              Icon(
-                Icons.person,
-                size: 80,
-                color: Theme.of(context).colorScheme.inversePrimary,
+              Positioned(
+                left: 124,
+                top: 83,
+                child: Container(
+                  width: 167,
+                  height: 167,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
               ),
-              //Espaço embranco
-              const SizedBox(height: 5),
               //Nome do Aplicativo
               const Text(
-                'S O C I A L',
+                'RECUPERAÇÃO DE SENHA',
                 style: TextStyle(fontSize: 20),
               ),
               //Espaço em branco
@@ -41,15 +43,8 @@ class ForgotPage extends StatelessWidget {
                   obscureText: false,
                   controller: controllerEmail),
               const SizedBox(height: 10),
-              //Input da senha
-              MyTextField(
-                  hintText: 'CPF',
-                  obscureText: false,
-                  controller: controllerPass),
-              const SizedBox(height: 10),
-              //Botão de login
               MyButton(
-                buttonText: 'Recuperar senha',
+                buttonText: 'CONFIRMAR',
                 onTapButton: () {},
               ),
               //Espaço em branco
@@ -60,10 +55,10 @@ class ForgotPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      goToLogin(context);
+                      goToInicio(context);
                     },
                     child: Text(
-                      'Voltar ao Login',
+                      'Voltar ao inicio',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),

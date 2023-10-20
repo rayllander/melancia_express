@@ -15,3 +15,7 @@ void goToForgotPass(context) {
 void goToHome(context) {
   Navigator.pushNamed(context, '/homePage');
 }
+
+void goToInicio(context) {
+  Navigator.pushNamed(context, '/inicio');
+}

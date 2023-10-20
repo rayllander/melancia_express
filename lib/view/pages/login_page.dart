@@ -20,17 +20,17 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //Ícone do Sistema
-              Icon(
-                Icons.person,
-                size: 80,
-                color: Theme.of(context).colorScheme.inversePrimary,
+              Positioned(
+                left: 124,
+                top: 83,
+                child: Container(
+                  width: 167,
+                  height: 167,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
               ),
-              //Espaço embranco
-              const SizedBox(height: 5),
-              //Nome do Aplicativo
               const Text(
-                'S O C I A L',
+                'LOGIN',
                 style: TextStyle(fontSize: 20),
               ),
               //Espaço em branco
@@ -48,26 +48,12 @@ class LoginPage extends StatelessWidget {
                   controller: controllerPass),
               //Esqueceu a senha
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      goToForgotPass(context);
-                    },
-                    child: Text(
-                      'Esqueceu a senha?',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary),
-                    ),
-                  ),
-                ],
-              ),
+
               //Espaço em branco
               const SizedBox(height: 20),
               //Botão de login
               MyButton(
-                buttonText: 'Login',
+                buttonText: 'ENTRAR',
                 onTapButton: () {
                   goToHome(context);
                 },
@@ -80,10 +66,10 @@ class LoginPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      goToRegister(context);
+                      goToForgotPass(context);
                     },
                     child: Text(
-                      'Não possui conta? Registre-se',
+                      'Esqueceu a senha? clique Aqui! ',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),
