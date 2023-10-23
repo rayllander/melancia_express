@@ -17,31 +17,38 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Center(
+      body: Center(
+        child: Container(
+          //margin: const EdgeInsets.all(75.0),
+          width: 324,
+          height: 490,
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.redAccent,
+              width: 1,
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //Ícone do Sistema
               Positioned(
-                left: 124,
+                // left: 124,
                 top: 83,
                 child: Container(
-                  width: 167,
-                  height: 167,
+                  width: 158,
+                  height: 158,
                   child: Image.asset('assets/images/logo.png'),
                 ),
               ),
-              //Espaço embranco
-              const SizedBox(height: 5),
               //Nome do Aplicativo
               const Text(
                 'CADASTRO',
                 style: TextStyle(fontSize: 20),
               ),
               //Espaço em branco
-              const SizedBox(height: 25),
+              const SizedBox(height: 15),
               //Input do nome
               MyTextField(
                   hintText: 'Nome',
@@ -68,7 +75,7 @@ class RegisterPage extends StatelessWidget {
                   controller: controllerConfirmPass),
 
               //Espaço em branco
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               //Botão de login
               MyButton(
                 buttonText: 'SALVAR',

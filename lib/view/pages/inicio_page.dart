@@ -15,8 +15,8 @@ class inicioPage extends StatelessWidget {
         child: Container(
           //margin: const EdgeInsets.all(75.0),
           width: 324,
-          height: 405,
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+          height: 490,
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.redAccent,
@@ -31,58 +31,26 @@ class inicioPage extends StatelessWidget {
                 height: 158,
                 child: Image.asset('assets/images/logo.png'),
               ),
+
               const Text(
                 'BEM VIND@',
-                style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20),
               ),
-              const SizedBox(height: 15),
+
+              const SizedBox(height: 25),
               //ESPAÇO EM BRANCO
-              Container(
-                height: 40,
-                width: 275,
-                child: TextButton(
-                  onPressed: () {
-                    goToRegister(context);
-                  },
-                  style: TextButton.styleFrom(
-                      alignment: Alignment.center,
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.red,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                      textStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.bold,
-                      )),
-                  child: const Text('CADASTRAR'),
-                ),
+              MyButton(
+                buttonText: 'CADASTRAR',
+                onTapButton: () {
+                  goToRegister(context);
+                },
               ),
-              const SizedBox(height: 15),
-              //ESPAÇO EM BRANCO
-              Container(
-                height: 40,
-                width: 275,
-                child: TextButton(
-                  onPressed: () {
-                    goToHome(context);
-                  },
-                  style: TextButton.styleFrom(
-                      alignment: Alignment.center,
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.red,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                      textStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.bold,
-                      )),
-                  child: const Text('LOGAR'),
-                ),
+              const SizedBox(height: 20),
+              MyButton(
+                buttonText: 'LOGAR',
+                onTapButton: () {
+                  goToHome(context);
+                },
               ),
             ],
           ),
