@@ -20,7 +20,7 @@ class MyButton extends StatelessWidget {
         width: 270,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Color(0xFFFF6961),
+          color: Color(0xFFEA3026),
           borderRadius: BorderRadius.circular(3),
         ),
         child: Text(buttonText,

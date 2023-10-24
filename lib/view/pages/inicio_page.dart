@@ -19,7 +19,7 @@ class inicioPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.redAccent,
+              color: Color(0xFFEA3026),
               width: 1,
             ),
           ),
