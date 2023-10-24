@@ -1,6 +1,6 @@
 {
-    "name": "melancia_express_2",
-    "short_name": "melancia_express_2",
+    "name": "melancia_express",
+    "short_name": "melancia_express",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -4,8 +4,8 @@ import 'package:melancia_express/view/pages/home_page.dart';
 import 'package:melancia_express/view/pages/inicio_page.dart';
 import 'package:melancia_express/view/pages/login_page.dart';
 import 'package:melancia_express/view/pages/register_page.dart';
-import 'package:melancia_express/view/theme/dark_mode.dart';
 import 'package:melancia_express/view/theme/ligth_mode.dart';
+import 'package:melancia_express/view/theme/dark_mode.dart';
 
 void main() {
   runApp(const SocialApp());
