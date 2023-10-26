@@ -6,25 +6,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color.fromARGB(0, 191, 41, 41),
       elevation: 0,
-      actions: [
-        IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/intropage'),
-            icon: Icon(
-              Icons.logout_rounded,
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ))
-      ],
-      leading: IconButton(
-        icon: Icon(
-          Icons.menu,
-          color: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-      ),
     );
   }
 
