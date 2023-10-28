@@ -8,7 +8,6 @@ class ForgotPage extends StatelessWidget {
   ForgotPage({super.key});
 
   TextEditingController controllerEmail = TextEditingController();
-  TextEditingController controllerPass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,6 @@ class ForgotPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Container(
-          //margin: const EdgeInsets.all(75.0),
           width: 324,
           height: 490,
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -29,7 +27,6 @@ class ForgotPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //Ícone do Sistema
               Positioned(
                 left: 124,
                 top: 83,
@@ -39,26 +36,29 @@ class ForgotPage extends StatelessWidget {
                   child: Image.asset('assets/images/logo.png'),
                 ),
               ),
-              //Nome do Aplicativo
               const Text(
                 'RECUPERAÇÃO DE SENHA',
                 style: TextStyle(fontSize: 20),
               ),
-              //Espaço em branco
               const SizedBox(height: 25),
               //Input do email
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'E-mail',
                   obscureText: false,
-                  controller: controllerEmail),
-              const SizedBox(height: 10),
-              MyButton(
-                buttonText: 'CONFIRMAR',
-                onTapButton: () {},
+                  controller: controllerEmail,
+                ),
               ),
-              //Espaço em branco
+              const SizedBox(height: 15),
+              Container(
+                width: 270,
+                child: MyButton(
+                  buttonText: 'CONFIRMAR',
+                  onTapButton: () {},
+                ),
+              ),
               const SizedBox(height: 20),
-              //Voltar ao login
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -67,9 +67,10 @@ class ForgotPage extends StatelessWidget {
                       goToInicio(context);
                     },
                     child: Text(
-                      'Voltar ao inicio',
+                      'Voltar ao início',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary),
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                   ),
                 ],

@@ -16,7 +16,6 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Container(
-          //margin: const EdgeInsets.all(75.0),
           width: 324,
           height: 490,
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -42,24 +41,29 @@ class LoginPage extends StatelessWidget {
                 'LOGIN',
                 style: TextStyle(fontSize: 20),
               ),
-              //Espaço em branco
               const SizedBox(height: 25),
               //Input do email
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'E-mail',
                   obscureText: false,
-                  controller: controllerEmail),
+                  controller: controllerEmail,
+                ),
+              ),
               const SizedBox(height: 10),
               //Input da senha
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'Senha',
                   obscureText: true,
-                  controller: controllerPass),
+                  controller: controllerPass,
+                ),
+              ),
+              //const SizedBox(height: 10),
               //Esqueceu a senha
-              const SizedBox(height: 10),
-
-              //Espaço em branco
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               //Botão de login
               MyButton(
                 buttonText: 'ENTRAR',
@@ -67,7 +71,6 @@ class LoginPage extends StatelessWidget {
                   goToHome(context);
                 },
               ),
-              //Espaço em branco
               const SizedBox(height: 20),
               //Não possui conta, registre-se
               Row(
@@ -80,7 +83,8 @@ class LoginPage extends StatelessWidget {
                     child: Text(
                       'Esqueceu a senha? clique Aqui! ',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary),
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                   ),
                 ],

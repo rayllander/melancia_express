@@ -19,7 +19,6 @@ class RegisterPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Container(
-          //margin: const EdgeInsets.all(75.0),
           width: 324,
           height: 490,
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -33,48 +32,56 @@ class RegisterPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //Ícone do Sistema
-              Positioned(
-                // left: 124,
-                top: 83,
-                child: Container(
-                  width: 158,
-                  height: 158,
-                  child: Image.asset('assets/images/logo.png'),
-                ),
+              Container(
+                width: 158,
+                height: 158,
+                child: Image.asset('assets/images/logo.png'),
               ),
               //Nome do Aplicativo
               const Text(
                 'CADASTRO',
                 style: TextStyle(fontSize: 20),
               ),
-              //Espaço em branco
               const SizedBox(height: 15),
               //Input do nome
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'Nome',
                   obscureText: false,
-                  controller: controllerUserName),
-              //Espaço em branco
+                  controller: controllerUserName,
+                ),
+              ),
               const SizedBox(height: 10),
               //Input do email
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'Telefone',
                   obscureText: false,
-                  controller: controllerEmail),
+                  controller: controllerEmail,
+                ),
+              ),
               const SizedBox(height: 10),
               //Input da senha
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'E-mail',
                   obscureText: true,
-                  controller: controllerPass),
+                  controller: controllerPass,
+                ),
+              ),
               const SizedBox(height: 10),
               //Input da confirme a senha
-              MyTextField(
+              Container(
+                width: 270,
+                child: MyTextField(
                   hintText: 'Senha',
                   obscureText: true,
-                  controller: controllerConfirmPass),
-
-              //Espaço em branco
+                  controller: controllerConfirmPass,
+                ),
+              ),
               const SizedBox(height: 15),
               //Botão de login
               MyButton(
@@ -83,7 +90,6 @@ class RegisterPage extends StatelessWidget {
                   displayMessage('Registrado', context);
                 },
               ),
-              //Espaço em branco
               const SizedBox(height: 20),
               //Possui uma conta? Faça login
               Row(
@@ -96,7 +102,8 @@ class RegisterPage extends StatelessWidget {
                     child: Text(
                       'Possui uma conta? Faça login',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary),
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                   ),
                 ],

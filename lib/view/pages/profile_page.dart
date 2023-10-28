@@ -1,15 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
+import 'package:melancia_express/view/components/my_button.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'USUÁRIO'), // Usar o MyAppBar personalizado
-      body: Center(
-        child: Text('Conteúdo da página de Perfil'),
+      appBar: MyAppBar(title: 'USUÁRIO'),
+      body: Padding(
+        padding: EdgeInsets.only(top: 50), // Adiciona espaço acima da Column (ajuste conforme necessário)
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 330, // Largura desejada para os botões
+                child: MyButton(
+                  buttonText: 'MEU PERFIL',
+                  onTapButton: () {},
+                ),
+              ),
+              SizedBox(height: 30), // Adiciona um espaço de 30 de altura entre os botões
+              Container(
+                width: 330, // Largura desejada para os botões
+                child: MyButton(
+                  buttonText: 'MEUS ANÚNCIOS',
+                  onTapButton: () {},
+                ),
+              ),
+              SizedBox(height: 30), // Adiciona um espaço de 30 de altura entre os botões e o ícone + texto
+              GestureDetector(
+                onTap: () {
+                  // Ação quando clicar no botão de sair
+                  // Por exemplo: adicionar a lógica para sair do aplicativo
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 40), // Define a distância da borda esquerda
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start, // Alinha os elementos à esquerda
+                    children: [
+                      Icon(Icons.exit_to_app, color: Color(0xFFEA3026)), // Ícone de saída
+                      SizedBox(width: 5), // Espaço entre o ícone e o texto
+                      Text('SAIR', style: TextStyle(color: Color(0xFFEA3026))), // Texto 'SAIR'
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

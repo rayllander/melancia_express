@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      width: 270,
+      width: 400,
       child: TextField(
         textAlign: TextAlign.center,
         controller: controller,

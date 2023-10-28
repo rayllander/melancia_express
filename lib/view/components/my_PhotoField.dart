@@ -9,18 +9,20 @@ class PhotoField extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 120,
-        height: 100,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Color(0xFFBEBDBD), // Cor da borda semelhante ao TextField
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5), // Valor para a borda arredondada
+        child: Container(
+          width: 120,
+          height: 105,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Color(0xFFBEBDBD), // Cor da borda semelhante ao TextField
+            ),
+            color: Color(0xFFD9D9D9), // Cor de preenchimento
           ),
-          color: Color(0xFFD9D9D9), // Cor de preenchimento
+          child: Icon(Icons.camera_alt, size: 60, color: Colors.grey[600]),
         ),
-        child: Icon(Icons.camera_alt, size: 60, color: Colors.grey[600]),
       ),
     );
   }
 }
-
