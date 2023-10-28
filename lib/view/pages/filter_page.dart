@@ -6,7 +6,7 @@ class FilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(), // Usar o MyAppBar personalizado
+      appBar: MyAppBar(title: 'FILTRAR POR:'), // Usar o MyAppBar personalizado
       body: Center(
         child: Text('Conteúdo da página de filtrar'),
       ),
