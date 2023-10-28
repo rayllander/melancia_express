@@ -19,3 +19,15 @@ void goToHome(context) {
 void goToInicio(context) {
   Navigator.pushNamed(context, '/inicio');
 }
+
+void goToProfile(context) {
+  Navigator.pushNamed(context, '/Profile');
+}
+
+void goToAnnouncement(context) {
+  Navigator.pushNamed(context, '/Announcement');
+}
+
+void goToFilter(context) {
+  Navigator.pushNamed(context, '/Filter');
+}

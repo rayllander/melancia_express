@@ -6,8 +6,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(0, 191, 41, 41),
+      backgroundColor: Colors.red,
       elevation: 0,
+      actions: [],
     );
   }
 
