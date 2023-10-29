@@ -31,3 +31,11 @@ void goToAnnouncement(context) {
 void goToFilter(context) {
   Navigator.pushNamed(context, '/Filter');
 }
+
+void goToMyPerfil(context) {
+  Navigator.pushNamed(context, '/MyPerfil');
+}
+
+void goToMyAnnouncement(context) {
+  Navigator.pushNamed(context, '/MyAnnouncement');
+}

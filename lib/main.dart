@@ -5,6 +5,8 @@ import 'package:melancia_express/view/pages/forgot_page.dart';
 import 'package:melancia_express/view/pages/home_page.dart';
 import 'package:melancia_express/view/pages/inicio_page.dart';
 import 'package:melancia_express/view/pages/login_page.dart';
+import 'package:melancia_express/view/pages/my_announcement.dart';
+import 'package:melancia_express/view/pages/my_profile.dart';
 import 'package:melancia_express/view/pages/profile_page.dart';
 import 'package:melancia_express/view/pages/register_page.dart';
 import 'package:melancia_express/view/theme/ligth_mode.dart';
@@ -33,6 +35,8 @@ class SocialApp extends StatelessWidget {
         '/Profile': (context) => ProfilePage(),
         '/Announcement': (context) => AnnouncementPage(),
         '/Filter': (context) => FilterPage(),
+        '/MyPerfil': (context) => MyPerfil(),
+        '/MyAnnouncement': (context) => MyAnnouncement(),
       },
     );
   }
