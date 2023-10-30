@@ -39,3 +39,7 @@ void goToMyPerfil(context) {
 void goToMyAnnouncement(context) {
   Navigator.pushNamed(context, '/MyAnnouncement');
 }
+
+void goToSearchResults(context) {
+  Navigator.pushNamed(context, '/SearchResults');
+}

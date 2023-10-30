@@ -9,6 +9,7 @@ import 'package:melancia_express/view/pages/my_announcement.dart';
 import 'package:melancia_express/view/pages/my_profile.dart';
 import 'package:melancia_express/view/pages/profile_page.dart';
 import 'package:melancia_express/view/pages/register_page.dart';
+import 'package:melancia_express/view/pages/search_results_page.dart';
 import 'package:melancia_express/view/theme/ligth_mode.dart';
 import 'package:melancia_express/view/theme/dark_mode.dart';
 
@@ -37,6 +38,9 @@ class SocialApp extends StatelessWidget {
         '/Filter': (context) => FilterPage(),
         '/MyPerfil': (context) => MyPerfil(),
         '/MyAnnouncement': (context) => MyAnnouncement(),
+        '/SearchResults': (context) => SearchResultsPage(
+              searchResults: [],
+            ),
       },
     );
   }
