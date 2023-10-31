@@ -4,8 +4,8 @@ class AnuncioController {
   List<Anuncio> listaDeAnuncios = [
     Anuncio(
       'assets/images/plantacao.png',
-      "Categoria: sem semente",
-      "Status: crescimento",
+      "sem semente",
+      "Crescimento",
       "23-10-2023",
       ["-"],
       "123-456-7890",
@@ -14,8 +14,8 @@ class AnuncioController {
     ),
     Anuncio(
       'assets/images/plantacao.png',
-      "Categoria: Amarela",
-      "Status: colheita",
+      "Amarela",
+      "Colheita",
       "20-03-2023",
       [""],
       "987-654-3210",
@@ -24,8 +24,8 @@ class AnuncioController {
     ),
     Anuncio(
       'assets/images/logo.png',
-      "Categoria: Amarela",
-      "Status: crescimento",
+      "Amarela",
+      "Crescimento",
       "10-02-2023",
       [""],
       "555-555-5555",
