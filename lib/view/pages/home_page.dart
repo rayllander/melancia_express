@@ -19,25 +19,29 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   void goToSearchResults(BuildContext context) {
-    final searchTerm = widget.searchController.text.toLowerCase();
-    final searchResults = widget._usuarioController.usuarios.where((usuario) {
-      final nomeUsuario = usuario.toLowerCase();
-      return nomeUsuario.startsWith(searchTerm);
-    }).toList();
+    final searchTerm = widget.searchController.text.toLowerCase().trim();
 
-    if (searchResults.isNotEmpty) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => SearchResultsPage(searchResults: searchResults),
-        ),
-      );
-    } else {
-      // Se não houver resultados, navegue para a página de resultados em branco
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => SearchResultsPage(searchResults: []),
-        ),
-      );
+    if (searchTerm.isNotEmpty) {
+      final searchResults = widget._usuarioController.usuarios.where((usuario) {
+        final nomeUsuario = usuario.toLowerCase();
+        return nomeUsuario.startsWith(searchTerm);
+      }).toList();
+
+      if (searchResults.isNotEmpty) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                SearchResultsPage(searchResults: searchResults),
+          ),
+        );
+      } else {
+        // Se não houver resultados, navegue para a página de resultados em branco
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => SearchResultsPage(searchResults: []),
+          ),
+        );
+      }
     }
   }
 

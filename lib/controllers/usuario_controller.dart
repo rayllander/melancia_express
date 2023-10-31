@@ -4,6 +4,10 @@ class UsuarioController {
     'laura, comprador',
     'rayllander, vendedor',
     'Isaac, agronomo',
+    'laurao, produtora',
+    'ray, comprador',
+    'maria de sá, vendedor',
+    'isaac newton, agronomo',
   ];
 
   // Outros métodos relevantes para gerenciar usuários, como adicionar, editar ou excluir, podem ser adicionados aqui.
