@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/pages/announcement_page.dart';
+import 'package:melancia_express/view/pages/edit_announcement_page.dart'; 
 import 'package:melancia_express/view/pages/filter_page.dart';
 import 'package:melancia_express/view/pages/forgot_page.dart';
 import 'package:melancia_express/view/pages/home_page.dart';
@@ -38,6 +39,7 @@ class SocialApp extends StatelessWidget {
         '/Filter': (context) => FilterPage(),
         '/MyPerfil': (context) => MyPerfil(),
         '/MyAnnouncement': (context) => MyAnnouncement(),
+        '/EditAnnouncement': (context) => EditAnnouncement(),
         '/SearchResults': (context) => SearchResultsPage(
               searchResults: [],
             ),

@@ -43,3 +43,7 @@ void goToMyAnnouncement(context) {
 void goToSearchResults(context) {
   Navigator.pushNamed(context, '/SearchResults');
 }
+
+void goToEditAnnouncement(context) {
+  Navigator.pushNamed(context, '/EditAnnouncement');
+}

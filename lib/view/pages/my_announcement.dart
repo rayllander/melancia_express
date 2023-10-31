@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_banner.dart';
+import 'package:melancia_express/view/pages/edit_announcement_page.dart'; // Importe a página de edição
 
 class MyAnnouncement extends StatelessWidget {
   MyAnnouncement({super.key});
@@ -20,6 +21,10 @@ class MyAnnouncement extends StatelessWidget {
                   imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
                   onEdit: () {
                     // Lógica de edição
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
+                    );
                   },
                   onDelete: () {
                     // Lógica de exclusão
@@ -30,6 +35,10 @@ class MyAnnouncement extends StatelessWidget {
                   imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
                   onEdit: () {
                     // Lógica de edição
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
+                    );
                   },
                   onDelete: () {
                     // Lógica de exclusão
