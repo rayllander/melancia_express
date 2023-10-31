@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_bottombar.dart';
-//import 'package:melancia_express/view/helpers/rout_helpers.dart';
 import 'package:melancia_express/controllers/Usuario_controller.dart';
-import 'package:melancia_express/view/pages/search_results_page.dart';
+import 'package:melancia_express/controllers/anuncio_controller.dart';
+import 'search_results_page.dart';
 
-// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final UsuarioController _usuarioController =
-      UsuarioController(); // Use UsuarioController
+  final UsuarioController _usuarioController = UsuarioController();
   final TextEditingController searchController = TextEditingController();
-  List<String> filteredUsuarios = [];
+  final AnuncioController anuncioController = AnuncioController();
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  String message = '';
+
   void goToSearchResults(BuildContext context) {
     final searchTerm = widget.searchController.text.toLowerCase().trim();
 
@@ -28,140 +28,218 @@ class _HomePageState extends State<HomePage> {
       }).toList();
 
       if (searchResults.isNotEmpty) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) =>
-                SearchResultsPage(searchResults: searchResults),
-          ),
-        );
+        message = "Resultados da pesquisa para '$searchTerm'";
       } else {
-        // Se não houver resultados, navegue para a página de resultados em branco
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => SearchResultsPage(searchResults: []),
-          ),
-        );
+        message = "Nenhum resultado encontrado para '$searchTerm'";
       }
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => SearchResultsPage(
+            searchResults: searchResults,
+            message: message,
+          ),
+        ),
+      );
     }
   }
 
-//
-//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 120,
-            color: Color(0xFFEA3026), // Cor do cabeçalho
-            child: Column(
-              // Usando uma coluna para centralizar verticalmente
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Centraliza verticalmente
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 50.0), // Ajuste o valor conforme necessário
-                  child: Container(
-                    width: 353,
-                    height: 43,
-                    decoration: BoxDecoration(
-                      color: Color(0x77D9D9D9),
-                      border: Border.all(width: 1, color: Color(0xFFD9D9D9)),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: widget.searchController,
-                            decoration: InputDecoration(
-                              hintText: 'Pesquisar por usúarios',
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.only(
-                                  left:
-                                      20.0), // Adiciona espaço à esquerda do texto digitado
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.search),
-                          onPressed: () {
-                            // Chamando a função goToSearchResults quando o botão de pesquisa for pressionado
-                            goToSearchResults(context);
-                          },
-                        ),
-                      ],
-                    ),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFEA3026),
+        centerTitle: true, // Centralize o título (a barra de pesquisa)
+        automaticallyImplyLeading: false, // Remove a seta de voltar
+        title: Container(
+          width: 353,
+          height: 43,
+          decoration: BoxDecoration(
+            color: Color(0x77D9D9D9),
+            border: Border.all(width: 1, color: Color(0xFFD9D9D9)),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: widget.searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Pesquisar por usuários',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 20.0),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Conteúdo da página
-                  // Exemplo de anúncio
-                  ListTile(
-                    title: Text('Anúncio 1'),
-                    subtitle: Text('Descrição do anúncio 1'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 2'),
-                    subtitle: Text('Descrição do anúncio 2'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 3'),
-                    subtitle: Text('Descrição do anúncio 3'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 4'),
-                    subtitle: Text('Descrição do anúncio 4'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 5'),
-                    subtitle: Text('Descrição do anúncio 5'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 6'),
-                    subtitle: Text('Descrição do anúncio 6'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 7'),
-                    subtitle: Text('Descrição do anúncio 7'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 8'),
-                    subtitle: Text('Descrição do anúncio 8'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 9'),
-                    subtitle: Text('Descrição do anúncio 9'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 10'),
-                    subtitle: Text('Descrição do anúncio 10'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 11'),
-                    subtitle: Text('Descrição do anúncio 11'),
-                  ),
-                  ListTile(
-                    title: Text('Anúncio 12'),
-                    subtitle: Text('Descrição do anúncio 12'),
-                  ),
-
-                  // Mais anúncios...
-                ],
               ),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  goToSearchResults(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Container(
+                  width: 377,
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color(0xFF000000).withOpacity(0.2),
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        widget
+                            .anuncioController.listaDeAnuncios[index].imagemUrl,
+                        width: 377,
+                        height: 266,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(height: 10),
+                      //
+                      //
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          " Categoria: ${widget.anuncioController.listaDeAnuncios[index].categoria}",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      //
+                      //
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          " Status: ${widget.anuncioController.listaDeAnuncios[index].status}",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      //
+                      //
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          " Data de Colheita: ${widget.anuncioController.listaDeAnuncios[index].dataColheita}",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      //
+                      //
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          " Comentários: ${widget.anuncioController.listaDeAnuncios[index].comentarios.join(', ')}",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      //
+                      //
+                      Align(
+                        alignment: Alignment.centerRight, // Alinhe à direita
+                        child: Text(
+                          " Preço: ${widget.anuncioController.listaDeAnuncios[index].preco.toStringAsFixed(2)}  ",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+
+                      //
+                      //
+                      SizedBox(height: 10),
+                      SizedBox(height: 10),
+                      Container(
+                        width: 377,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color(0xFF000000).withOpacity(0.2),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Telefone:",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                "${widget.anuncioController.listaDeAnuncios[index].telefone}",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 377,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color(0xFF000000).withOpacity(0.2),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "E-mail:",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                "${widget.anuncioController.listaDeAnuncios[index].email}",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              childCount: widget.anuncioController.listaDeAnuncios.length,
             ),
           ),
         ],
       ),
-      bottomNavigationBar: MyBottomBar(), // Usando o widget MyBottomBar
+      bottomNavigationBar: MyBottomBar(),
     );
   }
 }
