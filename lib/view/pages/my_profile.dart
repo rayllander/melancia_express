@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_edittextfield.dart';
-import 'package:melancia_express/view/components/my_textfield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
 
 // ignore: must_be_immutable
