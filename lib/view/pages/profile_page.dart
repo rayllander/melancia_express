@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/helpers/rout_helpers.dart';
+import 'package:melancia_express/view/components/my_bottombar.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -68,6 +69,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
+       bottomNavigationBar: MyBottomBar(), // Usando o widget MyBottomBar
     );
   }
 }
