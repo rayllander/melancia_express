@@ -157,15 +157,16 @@ class _HomePageState extends State<HomePage> {
                       //
                       //
                       Align(
-                        alignment: Alignment.centerRight, // Alinhe à direita
+                        alignment: Alignment.centerRight,
                         child: Text(
                           " Preço: ${widget.anuncioController.listaDeAnuncios[index].preco.toStringAsFixed(2)}  ",
                           style: TextStyle(
                             fontSize: 16,
+                            color: Color.fromRGBO(
+                                51, 219, 0, 0.945), // Set the color to green
                           ),
                         ),
                       ),
-
                       //
                       //
                       SizedBox(height: 10),
