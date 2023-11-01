@@ -53,8 +53,6 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true, // Centralize o título (a barra de pesquisa)
         automaticallyImplyLeading: false, // Remove a seta de voltar
         title: Container(
-          width: 353,
-          height: 43,
           decoration: BoxDecoration(
             color: Color(0x77D9D9D9),
             border: Border.all(width: 1, color: Color(0xFFD9D9D9)),

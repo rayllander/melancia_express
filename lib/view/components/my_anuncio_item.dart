@@ -77,6 +77,14 @@ class AnuncioItem extends StatelessWidget {
                                   fontSize: 16,
                                 ),
                               ),
+                              SizedBox(height: 10),
+                              Text(
+                                " Preço: ${anuncio.preco.toStringAsFixed(2)}  ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(51, 219, 0, 0.945),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -85,31 +93,23 @@ class AnuncioItem extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(10),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                " Preço: ${anuncio.preco.toStringAsFixed(2)}  ",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(51, 219, 0, 0.945),
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 10),
+                                Text(
+                                  "Telefone: ${anuncio.telefone}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                "Telefone: ${anuncio.telefone}",
-                                style: TextStyle(
-                                  fontSize: 16,
+                                SizedBox(height: 10),
+                                Text(
+                                  "E-mail: ${anuncio.email}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                "E-mail: ${anuncio.email}",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
+                              ]),
                         ),
                       ),
                     ],

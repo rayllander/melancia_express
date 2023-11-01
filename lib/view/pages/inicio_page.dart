@@ -49,7 +49,7 @@ class inicioPage extends StatelessWidget {
               MyButton(
                 buttonText: 'LOGAR',
                 onTapButton: () {
-                  goToHome(context);
+                  goToLogin(context);
                 },
               ),
             ],
