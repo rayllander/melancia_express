@@ -3,6 +3,7 @@ import 'package:melancia_express/view/components/my_bottombar.dart';
 import 'package:melancia_express/controllers/Usuario_controller.dart';
 import 'package:melancia_express/controllers/anuncio_controller.dart';
 import 'search_results_page.dart';
+import 'package:melancia_express/view/components/my_anuncio_item.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -85,155 +86,8 @@ class _HomePageState extends State<HomePage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                return Container(
-                  width: 377,
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color(0xFF000000).withOpacity(0.2),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        widget
-                            .anuncioController.listaDeAnuncios[index].imagemUrl,
-                        width: 377,
-                        height: 266,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(height: 10),
-                      //
-                      //
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          " Categoria: ${widget.anuncioController.listaDeAnuncios[index].categoria}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      //
-                      //
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          " Status: ${widget.anuncioController.listaDeAnuncios[index].status}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      //
-                      //
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          " Data de Colheita: ${widget.anuncioController.listaDeAnuncios[index].dataColheita}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      //
-                      //
-
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          " Comentários: ${widget.anuncioController.listaDeAnuncios[index].comentarios.join(', ')}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      //
-                      //
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          " Preço: ${widget.anuncioController.listaDeAnuncios[index].preco.toStringAsFixed(2)}  ",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromRGBO(
-                                51, 219, 0, 0.945), // Set the color to green
-                          ),
-                        ),
-                      ),
-                      //
-                      //
-                      SizedBox(height: 10),
-                      SizedBox(height: 10),
-                      Container(
-                        width: 377,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color(0xFF000000).withOpacity(0.2),
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Telefone:",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                "${widget.anuncioController.listaDeAnuncios[index].telefone}",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 377,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color(0xFF000000).withOpacity(0.2),
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "E-mail:",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                "${widget.anuncioController.listaDeAnuncios[index].email}",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return AnuncioItem(
+                    anuncio: widget.anuncioController.listaDeAnuncios[index]);
               },
               childCount: widget.anuncioController.listaDeAnuncios.length,
             ),

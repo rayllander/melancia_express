@@ -55,39 +55,33 @@ class RegisterPage extends StatelessWidget {
                           obscureText: false,
                           controller: controllerUserName,
                         ),
-
+                        //
                         const SizedBox(height: 10),
-                        //Input do email
-                        Container(
-                          width: 270,
-                          child: MyTextField(
-                            hintText: 'Telefone',
-                            obscureText: false,
-                            controller: controllerEmail,
-                          ),
+                        //
+                        MyTextField(
+                          hintText: 'Telefone',
+                          obscureText: false,
+                          controller: controllerEmail,
                         ),
+                        //
                         const SizedBox(height: 10),
-                        //Input da senha
-                        Container(
-                          width: 270,
-                          child: MyTextField(
-                            hintText: 'E-mail',
-                            obscureText: true,
-                            controller: controllerPass,
-                          ),
+                        //
+                        MyTextField(
+                          hintText: 'E-mail',
+                          obscureText: true,
+                          controller: controllerPass,
                         ),
+                        //
                         const SizedBox(height: 10),
-                        //Input da confirme a senha
-                        Container(
-                          width: 270,
-                          child: MyTextField(
-                            hintText: 'Senha',
-                            obscureText: true,
-                            controller: controllerConfirmPass,
-                          ),
+                        //
+                        MyTextField(
+                          hintText: 'Senha',
+                          obscureText: true,
+                          controller: controllerConfirmPass,
                         ),
+                        //
                         const SizedBox(height: 15),
-                        //Botão de login
+                        //
                         MyButton(
                           buttonText: 'SALVAR',
                           onTapButton: () {

@@ -5,9 +5,9 @@ import 'package:melancia_express/view/components/my_edittextfield.dart';
 import 'package:melancia_express/view/components/my_editphotofield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
 
-
+// ignore: must_be_immutable
 class EditAnnouncement extends StatelessWidget {
-   EditAnnouncement({super.key});
+  EditAnnouncement({super.key});
 
   TextEditingController controllerCategory = TextEditingController();
   TextEditingController controllerHarvestDate = TextEditingController();
@@ -19,7 +19,8 @@ class EditAnnouncement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'EDITAR ANÚNCIO'), // Usar o MyAppBar personalizado
+      appBar:
+          MyAppBar(title: 'EDITAR ANÚNCIO'), // Usar o MyAppBar personalizado
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         child: Center(
