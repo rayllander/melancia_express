@@ -44,12 +44,15 @@ class MyPerfil extends StatelessWidget {
                 controller: controllerPass,
               ),
               const SizedBox(height: 100),
-              MyButton(
-                buttonText: 'SALVAR',
-                onTapButton: () {
-                  displayMessage('Registrado', context);
-                },
-              ),
+              Container(
+                padding: const EdgeInsets.all(60.0),
+                child: MyButton(
+                  buttonText: 'SALVAR',
+                  onTapButton: () {
+                    displayMessage('Registrado', context);
+                  },
+                ),
+              )
             ],
           ),
         ),

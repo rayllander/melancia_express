@@ -10,7 +10,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: 'USUÁRIO'),
       body: Padding(
-        padding: EdgeInsets.all(75),
+        padding: EdgeInsets.all(65),
         child: Center(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
@@ -31,6 +31,7 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Container(
+                padding: EdgeInsets.all(0),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [

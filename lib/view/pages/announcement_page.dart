@@ -24,7 +24,7 @@ class AnnouncementPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +36,8 @@ class AnnouncementPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -63,7 +64,8 @@ class AnnouncementPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -97,17 +99,15 @@ class AnnouncementPage extends StatelessWidget {
                   controller: controllerEmail,
                 ),
                 SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyButton(
-                      buttonText: 'SALVAR',
-                      onTapButton: () {
-                        displayMessage('Registrado', context);
-                      },
-                    ),
-                  ],
-                ),
+                Container(
+                  padding: const EdgeInsets.all(60.0),
+                  child: MyButton(
+                    buttonText: 'SALVAR',
+                    onTapButton: () {
+                      displayMessage('Registrado', context);
+                    },
+                  ),
+                )
               ],
             ),
           ),
