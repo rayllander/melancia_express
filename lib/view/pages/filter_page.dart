@@ -20,40 +20,46 @@ class _FilterPageState extends State<FilterPage> {
     return Scaffold(
       appBar: MyAppBar(title: 'FILTRAR POR'),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              FilterSection(
-                title: 'CATEGORIAS',
-                options: [
-                  'Sem semente',
-                  'Amarela',
-                  'Categoria 3',
-                  'Categoria 4'
-                ],
-                selectedOptions: selectedCategories,
-              ),
-              FilterSection(
-                title: 'PREÇOS',
-                options: ['1,00', '15,00', '2,50', '5,80'],
-                selectedOptions: selectedPrices,
-              ),
-              FilterSection(
-                title: 'STATUS',
-                options: ['Ativo', 'Inativo'],
-                selectedOptions: selectedStatus,
-              ),
-              const SizedBox(height: 20),
-              MyButton(
-                onTapButton: () {
-                  // Realizar a ação desejada com as opções selecionadas
-                  //print('Categorias selecionadas: $selectedCategories');
-                  // print('Preços selecionados: $selectedPrices');
-                  // print('Status selecionados: $selectedStatus');
-                },
-                buttonText: 'SALVAR',
-              ),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                FilterSection(
+                  title: 'CATEGORIAS',
+                  options: [
+                    'Sem semente',
+                    'Amarela',
+                    'Categoria 3',
+                    'Categoria 4'
+                  ],
+                  selectedOptions: selectedCategories,
+                ),
+                FilterSection(
+                  title: 'PREÇOS',
+                  options: ['1,00', '15,00', '2,50', '5,80'],
+                  selectedOptions: selectedPrices,
+                ),
+                FilterSection(
+                  title: 'STATUS',
+                  options: ['Ativo', 'Inativo'],
+                  selectedOptions: selectedStatus,
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  padding: EdgeInsets.all(65.0),
+                  child: MyButton(
+                    onTapButton: () {
+                      // Realizar a ação desejada com as opções selecionadas
+                      //print('Categorias selecionadas: $selectedCategories');
+                      // print('Preços selecionados: $selectedPrices');
+                      // print('Status selecionados: $selectedStatus');
+                    },
+                    buttonText: 'SALVAR',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
