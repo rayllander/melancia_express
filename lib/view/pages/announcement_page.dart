@@ -23,90 +23,80 @@ class AnnouncementPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
-            width: 324,
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 180,
-                          child: MyTextField(
-                            hintText: 'Categoria',
-                            obscureText: false,
-                            controller: controllerCategory,
-                          ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyTextField(
+                              hintText: 'Categoria',
+                              obscureText: false,
+                              controller: controllerCategory,
+                            ),
+                            SizedBox(height: 20),
+                            MyTextField(
+                              hintText: 'Data de colheita',
+                              obscureText: false,
+                              controller: controllerHarvestDate,
+                            ),
+                            SizedBox(height: 20),
+                            MyTextField(
+                              hintText: 'Status',
+                              obscureText: false,
+                              controller: controllerStatus,
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 25),
-                        Container(
-                          width: 180,
-                          child: MyTextField(
-                            hintText: 'Data de colheita',
-                            obscureText: false,
-                            controller: controllerHarvestDate,
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Substitua a seção da imagem do anúncio pelo PhotoField
-                    PhotoField(
-                      onTap: () {
-                        // Lógica para selecionar a imagem
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 180,
-                      child: MyTextField(
-                        hintText: 'Status',
-                        obscureText: false,
-                        controller: controllerStatus,
                       ),
                     ),
-                    SizedBox(width: 10),
-                    Container(
-                      width: 120,
-                      child: MyTextField(
-                        hintText: 'Valor',
-                        obscureText: false,
-                        controller: controllerValue,
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            PhotoField(
+                              onTap: () {
+                                // Lógica para selecionar a imagem
+                              },
+                            ),
+                            SizedBox(height: 20),
+                            MyTextField(
+                              hintText: 'Valor',
+                              obscureText: false,
+                              controller: controllerValue,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 25),
-                Container(
-                  width: 400,
-                  child: MyTextField(
-                    hintText: 'Telefone',
-                    obscureText: false,
-                    controller: controllerTelephone,
-                  ),
+                SizedBox(height: 20),
+                MyTextField(
+                  hintText: 'Telefone',
+                  obscureText: false,
+                  controller: controllerTelephone,
                 ),
-                SizedBox(height: 25),
-                Container(
-                  width: 400,
-                  child: MyTextField(
-                    hintText: 'E-mail',
-                    obscureText: true,
-                    controller: controllerEmail,
-                  ),
+                SizedBox(height: 20),
+                MyTextField(
+                  hintText: 'E-mail',
+                  obscureText: true,
+                  controller: controllerEmail,
                 ),
-                SizedBox(height: 180),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -118,7 +108,6 @@ class AnnouncementPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
               ],
             ),
           ),

@@ -12,8 +12,6 @@ class PhotoField extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5), // Valor para a borda arredondada
         child: Container(
-          width: 120,
-          height: 105,
           decoration: BoxDecoration(
             border: Border.all(
               color: Color(0xFFBEBDBD), // Cor da borda semelhante ao TextField
