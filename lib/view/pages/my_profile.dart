@@ -14,41 +14,44 @@ class MyPerfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(title: 'MEU PERFIL'),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            MyEditTextField(
-              hintText: 'Nome',
-              obscureText: false,
-              controller: controllerUserName,
-            ),
-            const SizedBox(height: 15),
-            MyEditTextField(
-              hintText: 'Telefone',
-              obscureText: false,
-              controller: controllerEmail,
-            ),
-            const SizedBox(height: 15),
-            MyEditTextField(
-              hintText: 'Email',
-              obscureText: false,
-              controller: controllerEmail,
-            ),
-            const SizedBox(height: 15),
-            MyEditTextField(
-              hintText: 'Senha',
-              obscureText: true,
-              controller: controllerPass,
-            ),
-            const SizedBox(height: 250),
-            MyButton(
-              buttonText: 'SALVAR',
-              onTapButton: () {
-                displayMessage('Registrado', context);
-              },
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyEditTextField(
+                hintText: 'Nome',
+                obscureText: false,
+                controller: controllerUserName,
+              ),
+              const SizedBox(height: 15),
+              MyEditTextField(
+                hintText: 'Telefone',
+                obscureText: false,
+                controller: controllerEmail,
+              ),
+              const SizedBox(height: 15),
+              MyEditTextField(
+                hintText: 'Email',
+                obscureText: false,
+                controller: controllerEmail,
+              ),
+              const SizedBox(height: 15),
+              MyEditTextField(
+                hintText: 'Senha',
+                obscureText: true,
+                controller: controllerPass,
+              ),
+              const SizedBox(height: 100),
+              MyButton(
+                buttonText: 'SALVAR',
+                onTapButton: () {
+                  displayMessage('Registrado', context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
