@@ -14,68 +14,69 @@ class ForgotPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        child: Container(
-          width: 324,
-          height: 490,
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Color(0xFFEA3026),
-              width: 1,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Positioned(
-                left: 124,
-                top: 83,
-                child: Container(
-                  width: 167,
-                  height: 167,
-                  child: Image.asset('assets/images/logo.png'),
-                ),
-              ),
-              const Text(
-                'RECUPERAÇÃO DE SENHA',
-                style: TextStyle(fontSize: 20),
-              ),
-              const SizedBox(height: 25),
-              //Input do email
-              Container(
-                width: 270,
-                child: MyTextField(
-                  hintText: 'E-mail',
-                  obscureText: false,
-                  controller: controllerEmail,
-                ),
-              ),
-              const SizedBox(height: 15),
-              Container(
-                width: 270,
-                child: MyButton(
-                  buttonText: 'CONFIRMAR',
-                  onTapButton: () {},
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      goToInicio(context);
-                    },
-                    child: Text(
-                      'Voltar ao início',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
+        child: Padding(
+          padding: const EdgeInsets.all(45.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color(0xFFEA3026),
+                      width: 1,
                     ),
                   ),
-                ],
-              ),
-            ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 184,
+                        ),
+                      ),
+                      const Text(
+                        'RECUPERAÇÃO DE SENHA',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(height: 25),
+                      // Input do email
+                      MyTextField(
+                        hintText: 'E-mail',
+                        obscureText: false,
+                        controller: controllerEmail,
+                      ),
+                      const SizedBox(height: 15),
+                      MyButton(
+                        buttonText: 'CONFIRMAR',
+                        onTapButton: () {},
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              goToInicio(context);
+                            },
+                            child: Text(
+                              'Voltar ao início',
+                              style: TextStyle(
+                                color: Color(0xFFEA3026), // Cor ajustada para 0xFFEA3026
+                                // Adicione outros estilos se necessário (ex: fontSize, fontWeight, etc.)
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

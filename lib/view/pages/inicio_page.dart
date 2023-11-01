@@ -57,24 +57,7 @@ class inicioPage extends StatelessWidget {
                           },
                         ),
                         const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                goToLogin(context);
-                              },
-                              child: Text(
-                                'Possui uma conta? Faça login',
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .inversePrimary,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        
                       ],
                     ),
                   ),

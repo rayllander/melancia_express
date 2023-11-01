@@ -6,7 +6,7 @@ import 'package:melancia_express/view/helpers/rout_helpers.dart';
 
 // ignore: must_be_immutable
 class RegisterPage extends StatelessWidget {
-  RegisterPage({super.key});
+   RegisterPage({super.key});
 
   TextEditingController controllerUserName = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
@@ -36,52 +36,43 @@ class RegisterPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        //Ícone do Sistema
+                        // Ícone do Sistema
                         ClipRRect(
                           child: Image.asset(
                             'assets/images/logo.png',
                             width: 184,
                           ),
-                        ), //Nome do Aplicativo
+                        ),
                         const Text(
                           'CADASTRO',
                           style: TextStyle(fontSize: 20),
                         ),
                         const SizedBox(height: 15),
-                        //Input do nome
-
+                        // Input do nome
                         MyTextField(
                           hintText: 'Nome',
                           obscureText: false,
                           controller: controllerUserName,
                         ),
-                        //
                         const SizedBox(height: 10),
-                        //
                         MyTextField(
                           hintText: 'Telefone',
                           obscureText: false,
                           controller: controllerEmail,
                         ),
-                        //
                         const SizedBox(height: 10),
-                        //
                         MyTextField(
                           hintText: 'E-mail',
                           obscureText: true,
                           controller: controllerPass,
                         ),
-                        //
                         const SizedBox(height: 10),
-                        //
                         MyTextField(
                           hintText: 'Senha',
                           obscureText: true,
                           controller: controllerConfirmPass,
                         ),
-                        //
                         const SizedBox(height: 15),
-                        //
                         MyButton(
                           buttonText: 'SALVAR',
                           onTapButton: () {
@@ -89,7 +80,7 @@ class RegisterPage extends StatelessWidget {
                           },
                         ),
                         const SizedBox(height: 20),
-                        //Possui uma conta? Faça login
+                        // Possui uma conta? Faça login
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -98,11 +89,17 @@ class RegisterPage extends StatelessWidget {
                                 goToLogin(context);
                               },
                               child: Text(
-                                'Possui uma conta? Faça login',
+                                'Possui uma conta? ',
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                goToLogin(context);
+                              },
+                              child: Text(
+                                'Faça login',
                                 style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .inversePrimary,
+                                  color: Color(0xFFEA3026), // Cor definida aqui
                                 ),
                               ),
                             ),
