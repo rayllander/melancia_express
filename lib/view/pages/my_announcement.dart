@@ -11,43 +11,39 @@ class MyAnnouncement extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: 'MEUS ANÚNCIOS'), // Usar o MyAppBar personalizado
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(top: 50),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start, // Alinhar no início da coluna
-              children: [
-                MyBanner(
-                  imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
-                  onEdit: () {
-                    // Lógica de edição
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
-                    );
-                  },
-                  onDelete: () {
-                    // Lógica de exclusão
-                  },
-                ),
-                SizedBox(height: 25),
-                MyBanner(
-                  imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
-                  onEdit: () {
-                    // Lógica de edição
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
-                    );
-                  },
-                  onDelete: () {
-                    // Lógica de exclusão
-                  },
-                ),
-                SizedBox(height: 25),
-              ],
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyBanner(
+              imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
+              onEdit: () {
+                // Lógica de edição
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
+                );
+              },
+              onDelete: () {
+                // Lógica de exclusão
+              },
             ),
-          ),
+            SizedBox(height: 25),
+
+            MyBanner(
+              imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
+              onEdit: () {
+                // Lógica de edição
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
+                );
+              },
+              onDelete: () {
+                // Lógica de exclusão
+              },
+            ),
+          ],
         ),
       ),
     );

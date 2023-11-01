@@ -18,7 +18,7 @@ class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'FILTRAR POR:'),
+      appBar: MyAppBar(title: 'FILTRAR POR'),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
