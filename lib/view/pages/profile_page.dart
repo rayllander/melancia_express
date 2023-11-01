@@ -10,38 +10,29 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: 'USUÁRIO'),
       body: Padding(
-        padding: EdgeInsets.only(
-          top: 50,
-        ),
+        padding: EdgeInsets.all(75),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 330,
-                child: MyButton(
-                  buttonText: 'MEU PERFIL',
-                  onTapButton: () {
-                    goToMyPerfil(context);
-                  },
-                ),
+              MyButton(
+                buttonText: 'MEU PERFIL',
+                onTapButton: () {
+                  goToMyPerfil(context);
+                },
+              ),
+              SizedBox(height: 30),
+              MyButton(
+                buttonText: 'MEUS ANÚNCIOS',
+                onTapButton: () {
+                  goToMyAnnouncement(context);
+                },
               ),
               SizedBox(height: 30),
               Container(
-                width: 330,
-                child: MyButton(
-                  buttonText: 'MEUS ANÚNCIOS',
-                  onTapButton: () {
-                    goToMyAnnouncement(context);
-                  },
-                ),
-              ),
-              SizedBox(height: 30),
-              Container(
-                width: 330,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Icon(Icons.exit_to_app, color: Color(0xFFEA3026)),
                     SizedBox(width: 5),
