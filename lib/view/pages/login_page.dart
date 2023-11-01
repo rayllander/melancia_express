@@ -13,86 +13,76 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-        child: Container(
-          width: 324,
-          height: 490,
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.redAccent,
-              width: 1,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Positioned(
-                left: 124,
-                top: 83,
-                child: Container(
-                  width: 167,
-                  height: 167,
-                  child: Image.asset('assets/images/logo.png'),
-                ),
-              ),
-              const Text(
-                'LOGIN',
-                style: TextStyle(fontSize: 20),
-              ),
-              const SizedBox(height: 25),
-              //Input do email
-              Container(
-                width: 270,
-                child: MyTextField(
-                  hintText: 'E-mail',
-                  obscureText: false,
-                  controller: controllerEmail,
-                ),
-              ),
-              const SizedBox(height: 10),
-              //Input da senha
-              Container(
-                width: 270,
-                child: MyTextField(
-                  hintText: 'Senha',
-                  obscureText: true,
-                  controller: controllerPass,
-                ),
-              ),
-              //const SizedBox(height: 10),
-              //Esqueceu a senha
-              const SizedBox(height: 15),
-              //Botão de login
-              MyButton(
-                buttonText: 'ENTRAR',
-                onTapButton: () {
-                  goToHome(context);
-                },
-              ),
-              const SizedBox(height: 20),
-              //Não possui conta, registre-se
-              Row(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(45.0),
+            child: SingleChildScrollView(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      goToForgotPass(context);
-                    },
-                    child: Text(
-                      'Esqueceu a senha? clique Aqui! ',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.inversePrimary,
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Color(0xFFEA3026),
+                        width: 1,
                       ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 184,
+                          ),
+                        ),
+                        MyTextField(
+                          hintText: 'E-mail',
+                          obscureText: false,
+                          controller: controllerEmail,
+                        ),
+                        const SizedBox(height: 10),
+                        MyTextField(
+                          hintText: 'Senha',
+                          obscureText: true,
+                          controller: controllerPass,
+                        ),
+                        const SizedBox(height: 15),
+                        MyButton(
+                          buttonText: 'ENTRAR',
+                          onTapButton: () {
+                            goToHome(context);
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                goToForgotPass(context);
+                              },
+                              child: Text(
+                                'Esqueceu a senha? clique Aqui! ',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .inversePrimary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
