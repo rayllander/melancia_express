@@ -3,34 +3,46 @@ import 'package:melancia_express/model/anuncio.dart';
 class AnuncioController {
   List<Anuncio> listaDeAnuncios = [
     Anuncio(
-      'assets/images/plantacao.png',
-      "sem semente",
-      "Crescimento",
-      "23-10-2023",
-      ["-"],
-      "123-456-7890",
-      "email1@example.com",
-      0.99, // Inclua o preço aqui
+      listaDeImagens: [
+        'assets/images/imagem1.png',
+        'assets/images/imagem2.png',
+        'assets/images/imagem3.png',
+      ],
+      categoria: "sem semente",
+      status: "Crescimento",
+      dataColheita: "23-10-2023",
+      comentarios: [""],
+      telefone: "123-456-7890",
+      email: "Rayllander@example.com",
+      preco: 0.99,
     ),
     Anuncio(
-      'assets/images/plantacao.png',
-      "Amarela",
-      "Colheita",
-      "20-03-2023",
-      [""],
-      "987-654-3210",
-      "email2@example.com",
-      01.10, // Inclua o preço aqui
+      listaDeImagens: [
+        'assets/images/imagem4.png',
+        'assets/images/imagem5.png',
+        'assets/images/imagem6.png',
+      ],
+      categoria: "Amarela",
+      status: "Colheita",
+      dataColheita: "20-03-2023",
+      comentarios: [""],
+      telefone: "987-654-3210",
+      email: "MariaEduarda@example.com",
+      preco: 1.10,
     ),
     Anuncio(
-      'assets/images/logo.png',
-      "Amarela",
-      "Crescimento",
-      "10-02-2023",
-      [""],
-      "555-555-5555",
-      "email3@example.com",
-      01.15, // Inclua o preço aqui
+      listaDeImagens: [
+        'assets/images/imagem7.png',
+        'assets/images/imagem8.png',
+        'assets/images/imagem9.png',
+      ],
+      categoria: "Amarela",
+      status: "Crescimento",
+      dataColheita: "10-02-2023",
+      comentarios: [""],
+      telefone: "555-555-5555",
+      email: "Laurao@example.com",
+      preco: 1.15,
     ),
     // Adicione mais anúncios fictícios conforme necessário
   ];

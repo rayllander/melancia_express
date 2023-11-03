@@ -16,12 +16,15 @@ class MyAnnouncement extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MyBanner(
-              imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
+              imagePath:
+                  'assets/images/logo.png', // Especifique o caminho da imagem
               onEdit: () {
                 // Lógica de edição
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          EditAnnouncement()), // Navegar para a página de edição
                 );
               },
               onDelete: () {
@@ -29,14 +32,16 @@ class MyAnnouncement extends StatelessWidget {
               },
             ),
             SizedBox(height: 25),
-
             MyBanner(
-              imagePath: 'assets/images/logo.png', // Especifique o caminho da imagem
+              imagePath:
+                  'assets/images/imagem1.png', // Especifique o caminho da imagem
               onEdit: () {
                 // Lógica de edição
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EditAnnouncement()), // Navegar para a página de edição
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          EditAnnouncement()), // Navegar para a página de edição
                 );
               },
               onDelete: () {

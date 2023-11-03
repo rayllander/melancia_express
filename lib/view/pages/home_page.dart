@@ -79,6 +79,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      //
+      //
       body: CustomScrollView(
         slivers: <Widget>[
           SliverList(
@@ -92,6 +94,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      //
+      //
       bottomNavigationBar: MyBottomBar(),
     );
   }
