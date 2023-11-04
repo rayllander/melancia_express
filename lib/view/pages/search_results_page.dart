@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
+import 'package:melancia_express/view/components/my_bottombar.dart';
 
 class SearchResultsPage extends StatefulWidget {
   SearchResultsPage({Key? key, required this.searchResults, this.message = ''})
@@ -31,6 +32,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           : Center(
               child: Text(widget.message),
             ),
+      bottomNavigationBar: MyBottomBar(),
     );
   }
 }
