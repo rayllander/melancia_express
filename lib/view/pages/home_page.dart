@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_bottombar.dart';
-import 'package:melancia_express/controllers/Usuario_controller.dart';
+import 'package:melancia_express/controllers/user_controller.dart';
 import 'package:melancia_express/controllers/anuncio_controller.dart';
-import 'search_results_page.dart';
+//import 'search_results_page.dart';
 import 'package:melancia_express/view/components/my_anuncio_item.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final UsuarioController _usuarioController = UsuarioController();
+  final UserController userController = UserController();
   final TextEditingController searchController = TextEditingController();
   final AnuncioController anuncioController = AnuncioController();
 
@@ -23,25 +23,27 @@ class _HomePageState extends State<HomePage> {
     final searchTerm = widget.searchController.text.toLowerCase().trim();
 
     if (searchTerm.isNotEmpty) {
-      final searchResults = widget._usuarioController.usuarios.where((usuario) {
-        final nomeUsuario = usuario.toLowerCase();
-        return nomeUsuario.startsWith(searchTerm);
-      }).toList();
+      /*
+    final searchResults = widget._usuarioController.user.where((usuario) {
+      final nomeUsuario = usuario.toLowerCase();
+      return nomeUsuario.startsWith(searchTerm);
+    }).toList();
 
-      if (searchResults.isNotEmpty) {
-        message = "Resultados da pesquisa para '$searchTerm'";
-      } else {
-        message = "Nenhum resultado encontrado para '$searchTerm'";
-      }
+    if (searchResults.isNotEmpty) {
+      message = "Resultados da pesquisa para '$searchTerm'";
+    } else {
+      message = "Nenhum resultado encontrado para '$searchTerm'";
+    }
 
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => SearchResultsPage(
-            searchResults: searchResults,
-            message: message,
-          ),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => SearchResultsPage(
+          searchResults: searchResults,
+          message: message,
         ),
-      );
+      ),
+    );
+    */
     }
   }
 

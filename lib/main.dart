@@ -13,23 +13,22 @@ import 'package:melancia_express/view/pages/register_page.dart';
 import 'package:melancia_express/view/pages/search_results_page.dart';
 import 'package:melancia_express/view/theme/ligth_mode.dart';
 import 'package:melancia_express/view/theme/dark_mode.dart';
-import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final keyApplicationId = 'bxNMs6nuh6TsoifV5r36UJ6UdLQiSCfGulvMSrYe';
-  final keyClientKey = 'v8lrfItj5tjRaA8xUAaHNVN8W3KhsvcW546fZdS7';
+  final keyApplicationId = 'AQL5f7yf0TkgXSzsSofkl1l12lvy4PWBKikMSEmv';
+  final keyClientKey = 'OVIBKpgVEjdWiuEsOoPG1kHCtS3BSAM4K6a2SIEI';
   final keyParseServerUrl = 'https://parseapi.back4app.com';
 
   await Parse().initialize(keyApplicationId, keyParseServerUrl,
       clientKey: keyClientKey, autoSendSessionId: true);
 
-  runApp(const SocialApp());
+  runApp(const MelanciaExpress());
 }
 
-class SocialApp extends StatelessWidget {
-  const SocialApp({super.key});
+class MelanciaExpress extends StatelessWidget {
+  const MelanciaExpress({super.key});
 
   @override
   Widget build(BuildContext context) {
