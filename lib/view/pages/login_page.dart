@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_textfield.dart';
+import 'package:melancia_express/view/helpers/interface_helpers.dart';
 import 'package:melancia_express/view/helpers/rout_helpers.dart';
+import 'package:melancia_express/controllers/login_controller.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
@@ -9,6 +11,8 @@ class LoginPage extends StatelessWidget {
 
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
+
+  LoginController _loginController = LoginController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +62,33 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 15),
                       MyButton(
                         buttonText: 'ENTRAR',
-                        onTapButton: () {
-                          goToHome(context);
+                        onTapButton: () async {
+                          // Validação dos campos
+                          if (controllerEmail.text.isEmpty ||
+                              controllerPass.text.isEmpty) {
+                            displayMessage('preencha todos os campos', context);
+                            return;
+                          }
+
+                          // Chama o método de login do LoginController
+                          try {
+                            bool loginSuccess =
+                                await _loginController.loginUser(
+                              controllerEmail.text,
+                              controllerPass.text,
+                            );
+
+                            if (loginSuccess) {
+                              goToHome(context);
+                            } else {
+                              displayMessage('usuario não encontrado', context);
+                            }
+                          } catch (e) {
+                            // Captura exceções e exibe uma mensagem de erro mais detalhada
+                            print('Erro ao fazer login: $e');
+                            print(
+                                'Falha ao fazer login. Verifique suas credenciais.');
+                          }
                         },
                       ),
                       const SizedBox(height: 20),
@@ -81,7 +110,8 @@ class LoginPage extends StatelessWidget {
                             child: Text(
                               'clique Aqui!',
                               style: TextStyle(
-                                color: Color(0xFFEA3026), // Alterando a cor para 0xFFEA3026
+                                color: Color(
+                                    0xFFEA3026), // Alterando a cor para 0xFFEA3026
                               ),
                             ),
                           ),
