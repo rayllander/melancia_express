@@ -104,7 +104,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           if (registrationSuccess) {
                             // Registro bem-sucedido, exibe mensagem ou navega para outra tela
-                            displayMessage('Registrado com sucesso', context);
+                            displayMessage(
+                                'Registrado com sucesso, ative a conta no email!',
+                                context);
                           } else {
                             // Registro falhou, exibe mensagem de erro ou realiza ações apropriadas
                             displayMessage(

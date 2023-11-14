@@ -69,8 +69,7 @@ class LoginPage extends StatelessWidget {
                             displayMessage('preencha todos os campos', context);
                             return;
                           }
-
-                          // Chama o método de login do LoginController
+                          //método de login do LoginController
                           try {
                             bool loginSuccess =
                                 await _loginController.loginUser(
@@ -84,10 +83,8 @@ class LoginPage extends StatelessWidget {
                               displayMessage('usuario não encontrado', context);
                             }
                           } catch (e) {
-                            // Captura exceções e exibe uma mensagem de erro mais detalhada
                             print('Erro ao fazer login: $e');
-                            print(
-                                'Falha ao fazer login. Verifique suas credenciais.');
+                            displayMessage('ERRO', context);
                           }
                         },
                       ),
@@ -110,8 +107,7 @@ class LoginPage extends StatelessWidget {
                             child: Text(
                               'clique Aqui!',
                               style: TextStyle(
-                                color: Color(
-                                    0xFFEA3026), // Alterando a cor para 0xFFEA3026
+                                color: Color(0xFFEA3026),
                               ),
                             ),
                           ),

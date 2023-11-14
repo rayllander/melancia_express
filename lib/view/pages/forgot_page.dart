@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_textfield.dart';
+import 'package:melancia_express/view/helpers/interface_helpers.dart';
 import 'package:melancia_express/view/helpers/rout_helpers.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 // ignore: must_be_immutable
 class ForgotPage extends StatelessWidget {
-  ForgotPage({super.key});
+  ForgotPage({Key? key}) : super(key: key);
 
   TextEditingController controllerEmail = TextEditingController();
+
+  Future<void> resetPassword(BuildContext context) async {
+    try {
+      // Validação do campo de e-mail
+      if (controllerEmail.text.isEmpty) {
+        displayMessage('preencha com seu email', context);
+
+        return;
+      }
+
+      // Criar uma instância de ParseUser
+      ParseUser user = ParseUser(null, null, controllerEmail.text);
+
+      // Solicitar redefinição de senha
+      await user.requestPasswordReset();
+
+      // Adicione aqui sua lógica de sucesso, por exemplo, mostrar uma mensagem ao usuário
+      displayMessage(
+          'Solicitação de redefinição de senha enviada com sucesso. Um email foi enviado para a redefinição!',
+          context);
+    } catch (e) {
+      displayMessage('Erro ao solicitar redefinição de senha: $e', context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +78,7 @@ class ForgotPage extends StatelessWidget {
                       const SizedBox(height: 15),
                       MyButton(
                         buttonText: 'CONFIRMAR',
-                        onTapButton: () {},
+                        onTapButton: () => resetPassword(context),
                       ),
                       const SizedBox(height: 20),
                       Row(
@@ -65,8 +91,7 @@ class ForgotPage extends StatelessWidget {
                             child: Text(
                               'Voltar ao início',
                               style: TextStyle(
-                                color: Color(0xFFEA3026), // Cor ajustada para 0xFFEA3026
-                                // Adicione outros estilos se necessário (ex: fontSize, fontWeight, etc.)
+                                color: Color(0xFFEA3026),
                               ),
                             ),
                           ),
