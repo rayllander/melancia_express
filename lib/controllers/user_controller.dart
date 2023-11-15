@@ -55,4 +55,22 @@ class UserController {
       return false;
     }
   }
+
+  Future<ParseUser?> getUserLogged() async {
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    if (currentUser == null) {
+      return null;
+    }
+    //Checks whether the user's session token is valid
+    final ParseResponse? parseResponse =
+        await ParseUser.getCurrentUserFromServer(currentUser.sessionToken!);
+
+    if (parseResponse?.success == null || !parseResponse!.success) {
+      //Invalid session. Logout
+      await currentUser.logout();
+      return null;
+    } else {
+      return parseResponse.result;
+    }
+  }
 }

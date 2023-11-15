@@ -25,15 +25,14 @@ class LoginController {
       if (userResponse.success) {
         // O login bem-sucedido
         print('Usuário fez login com sucesso: ${user.objectId}');
-        return true; // Adiciona esta linha para indicar sucesso
+        return true; 
       } else {
-        // Erros de login
         print('Erro ao fazer login: ${userResponse.error}');
-        return false; // Adiciona esta linha para indicar falha
+        return false; 
       }
     } catch (e) {
       print('Erro ao fazer login: $e');
-      return false; // Adiciona esta linha para indicar falha em caso de exceção
+      return false; 
     }
   }
 
