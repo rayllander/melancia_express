@@ -1,15 +1,12 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_textfield.dart';
 import 'package:melancia_express/view/components/my_Photofield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
-import 'package:melancia_express/controllers/announcement_controller.dart';
-
+//import 'package:melancia_express/controllers/announcement_controller.dart';
 
 // ignore: must_be_immutable
 class AnnouncementPage extends StatelessWidget {
@@ -22,7 +19,7 @@ class AnnouncementPage extends StatelessWidget {
   TextEditingController controllerTelephone = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
 
-  XFile? _selectedImage;
+  //XFile? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,7 @@ class AnnouncementPage extends StatelessWidget {
                 padding: const EdgeInsets.all(0.0),
                 child: PhotoField(
                   onImageSelected: (XFile? selectedImage) {
-                    _selectedImage = selectedImage;
+                    //_selectedImage = selectedImage;
                   },
                 ),
               ),
@@ -87,7 +84,7 @@ class AnnouncementPage extends StatelessWidget {
                   buttonText: 'SALVAR',
                   onTapButton: () async {
                     try {
-                      await AnnouncementController().saveAnnouncement(
+                      /*await AnnouncementController().saveAnnouncement(
                         context: context,
                         category: controllerCategory.text,
                         harvestDate: controllerHarvestDate.text,
@@ -96,7 +93,7 @@ class AnnouncementPage extends StatelessWidget {
                         telephone: controllerTelephone.text,
                         email: controllerEmail.text,
                         selectedImage: _selectedImage,
-                      );
+                      );*/
 
                       displayMessage('Anúncio salvo com sucesso!', context);
                     } catch (e) {

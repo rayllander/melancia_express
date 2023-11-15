@@ -1,3 +1,4 @@
+/*
 import 'dart:developer';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,22 +22,19 @@ class AnnouncementController {
     userContoller.getUserLogged().then((value) => user);
     log(user.toString());
     // ignore: unnecessary_null_comparison
-    if (user == null){
+    if (user == null) {
       log('erro usuario');
     }
     /** SALVAR O ANUNCIO */
     final announcment = ParseObject('Anuncio')
-    ..set('categoria', category)
-    ..set('status', status)
-    ..set('preco', value)
-    ..set('data_colheita', harvestDate)
-    ..set('telefone',telephone)
-    ..set('email',email)
-    ..set(
-          'usuario_pointer',
-          (ParseObject('Usuario')..objectId = user!.objectId)
-              .toPointer()
-          );
+      ..set('categoria', category)
+      ..set('status', status)
+      ..set('preco', value)
+      ..set('data_colheita', harvestDate)
+      ..set('telefone', telephone)
+      ..set('email', email)
+      ..set('usuario_pointer',
+          (ParseObject('Usuario')..objectId = user!.objectId).toPointer());
     ;
 
     try {
@@ -44,41 +42,9 @@ class AnnouncementController {
     } catch (e) {
       log(e.toString());
     }
-    
-
   }
 }
+*/
 
 
 
-/* try {
-      var announcementModel = AnnouncementModel();
-      
-      var currentUser = userContoller.getUserLogged();
-                      
-      announcementModel.category = category;
-      announcementModel.harvestDate = DateTime.parse(harvestDate);
-      announcementModel.status = status;
-      announcementModel.value = double.parse(value);
-      announcementModel.telephone = int.parse(telephone);
-      announcementModel.email = email;
-
-      announcementModel.userPointer = currentUser;
-
-      await announcementModel.save();
-
-      if (selectedImage != null) {
-        var photosModel = PhotoModel();
-
-        var file = ParseFile(File(selectedImage.path), name: 'image.jpg');
-        photosModel.file = file;
-
-        photosModel.announcementPointer = announcementModel;
-
-        await photosModel.save();
-      }
-
-      print('Anúncio salvo com sucesso!');
-    } catch (e) {
-      print('Erro ao salvar o anúncio: $e');
-    } */

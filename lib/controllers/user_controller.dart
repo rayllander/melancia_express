@@ -17,11 +17,8 @@ class UserController {
     );
   }
 
-  /////////
   Future<bool> signUp(UserModel newUser) async {
     try {
-      await initializeParse();
-
       // Verifica se os campos obrigatórios não são nulos
       if (newUser.username.isEmpty ||
           newUser.password.isEmpty ||
@@ -59,7 +56,6 @@ class UserController {
     }
   }
 
-<<<<<<< HEAD
   /////////////
   Future<bool> loginUser(String email, String password) async {
     try {
@@ -105,18 +101,10 @@ class UserController {
     }
     log('current user ---------------------------------------');
     log(currentUser.toString());
-=======
-  Future<ParseUser?> getUserLogged() async {
-    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
-    if (currentUser == null) {
-      return null;
-    }
->>>>>>> cb17039779d205cfe9008f9932945c1128f7a501
     //Checks whether the user's session token is valid
     final ParseResponse? parseResponse =
         await ParseUser.getCurrentUserFromServer(currentUser.sessionToken!);
 
-<<<<<<< HEAD
     log('response ---------------------------------------');
     var test = parseResponse?.success;
     log(test.toString());
@@ -127,14 +115,6 @@ class UserController {
       return false;
     } else {
       return true;
-=======
-    if (parseResponse?.success == null || !parseResponse!.success) {
-      //Invalid session. Logout
-      await currentUser.logout();
-      return null;
-    } else {
-      return parseResponse.result;
->>>>>>> cb17039779d205cfe9008f9932945c1128f7a501
     }
   }
 }
