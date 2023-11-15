@@ -11,7 +11,7 @@ class MyAnnouncement extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: 'MEUS ANÚNCIOS'), // Usar o MyAppBar personalizado
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(100.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
