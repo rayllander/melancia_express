@@ -3,10 +3,16 @@ import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/helpers/rout_helpers.dart';
 import 'package:melancia_express/view/components/my_bottombar.dart';
-import 'package:melancia_express/controllers/login_controller.dart';
+import 'package:melancia_express/controllers/user_controller.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class ProfilePage extends StatelessWidget {
-  final LoginController _loginController = LoginController();
+  final UserController _UserController = UserController();
+
+  Future<ParseUser?> getUser() async {
+    var currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +42,8 @@ class ProfilePage extends StatelessWidget {
               Container(
                 child: GestureDetector(
                   onTap: () async {
-                    await _loginController.logoutUser();
-                    goToLogin(context);
+                    await _UserController.logoutUser();
+                    goToInicio(context);
                   },
                   child: Row(
                     children: [

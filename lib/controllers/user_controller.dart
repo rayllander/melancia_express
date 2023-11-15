@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:melancia_express/model/user_model.dart';
 
@@ -15,6 +17,7 @@ class UserController {
     );
   }
 
+  /////////
   Future<bool> signUp(UserModel newUser) async {
     try {
       await initializeParse();
@@ -53,6 +56,68 @@ class UserController {
         print('Erro desconhecido ao registrar usuário: $e');
       }
       return false;
+    }
+  }
+
+  /////////////
+  Future<bool> loginUser(String email, String password) async {
+    try {
+      final ParseUser user = ParseUser(email, password, null);
+
+      final ParseResponse userResponse = await user.login();
+
+      if (userResponse.success) {
+        // O login bem-sucedido
+        print('Usuário fez login com sucesso: ${user.objectId}');
+        return true; // Adiciona esta linha para indicar sucesso
+      } else {
+        // Erros de login
+        print('Erro ao fazer login: ${userResponse.error}');
+        return false; // Adiciona esta linha para indicar falha
+      }
+    } catch (e) {
+      print('Erro ao fazer login: $e');
+      return false; // Adiciona esta linha para indicar falha em caso de exceção
+    }
+  }
+
+  ///////
+  Future<void> logoutUser() async {
+    try {
+      final ParseUser? currentUser = await ParseUser.currentUser();
+      if (currentUser != null) {
+        await currentUser.logout();
+        print('Usuário desconectado com sucesso.');
+      } else {
+        print('Nenhum usuário logado.');
+      }
+    } catch (e) {
+      print('Erro ao fazer logout: $e');
+    }
+  }
+
+  /////////
+  Future<bool> hasUserLogged() async {
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    if (currentUser == null) {
+      return false;
+    }
+    log('current user ---------------------------------------');
+    log(currentUser.toString());
+    //Checks whether the user's session token is valid
+    final ParseResponse? parseResponse =
+        await ParseUser.getCurrentUserFromServer(currentUser.sessionToken!);
+
+    log('response ---------------------------------------');
+    var test = parseResponse?.success;
+    log(test.toString());
+
+    if (parseResponse?.success == null || !parseResponse!.success) {
+      //Invalid session. Logout
+      await currentUser.logout();
+      return false;
+    } else {
+      return true;
     }
   }
 }
