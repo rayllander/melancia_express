@@ -34,7 +34,7 @@ class MelanciaExpress extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: inicioPage(),
+      home: InicioPage(),
       theme: lighMode,
       darkTheme: darkMode,
       routes: {
@@ -42,7 +42,7 @@ class MelanciaExpress extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/forgotPass': (context) => ForgotPage(),
         '/homePage': (context) => HomePage(),
-        '/inicio': (context) => inicioPage(),
+        '/inicio': (context) => InicioPage(),
         '/Profile': (context) => ProfilePage(),
         '/Announcement': (context) => AnnouncementPage(),
         '/Filter': (context) => FilterPage(),
