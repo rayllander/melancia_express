@@ -117,4 +117,9 @@ class UserController {
       return true;
     }
   }
+
+  Future<ParseUser?> getUser() async {
+    var currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
 }
