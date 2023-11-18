@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:melancia_express/controllers/announcement_controller.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
@@ -13,14 +14,16 @@ class AnnouncementPage extends StatelessWidget {
   AnnouncementPage({Key? key});
 
   TextEditingController controllerCategory = TextEditingController();
-  TextEditingController controllerHarvestDate = TextEditingController();
   TextEditingController controllerStatus = TextEditingController();
   TextEditingController controllerValue = TextEditingController();
   TextEditingController controllerTelephone = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController controllerDatetime = TextEditingController();
+
     return Scaffold(
       appBar: MyAppBar(title: 'CRIAR ANÚNCIO'),
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -46,10 +49,26 @@ class AnnouncementPage extends StatelessWidget {
                 controller: controllerCategory,
               ),
               SizedBox(height: 20),
-              MyTextField(
-                hintText: 'Data de colheita',
-                obscureText: false,
-                controller: controllerHarvestDate,
+              GestureDetector(
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2101),
+                  );
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('dd/MM/yyyy').format(pickedDate);
+                    controllerDatetime.text = formattedDate;
+                    selectedDate = pickedDate;
+                  }
+                },
+                child: MyTextField(
+                  hintText: 'Data de colheita (dia/mês/ano)',
+                  obscureText: false,
+                  controller: controllerDatetime,
+                ),
               ),
               SizedBox(height: 20),
               MyTextField(
@@ -82,9 +101,8 @@ class AnnouncementPage extends StatelessWidget {
                   buttonText: 'SALVAR',
                   onTapButton: () async {
                     try {
-                      // Validar se os campos obrigatórios estão preenchidos
                       if (controllerCategory.text.isEmpty ||
-                          controllerHarvestDate.text.isEmpty ||
+                          controllerDatetime.text.isEmpty ||
                           controllerStatus.text.isEmpty ||
                           controllerValue.text.isEmpty ||
                           controllerTelephone.text.isEmpty ||
@@ -94,16 +112,14 @@ class AnnouncementPage extends StatelessWidget {
                         return;
                       }
 
-                      // Convertendo os valores para os tipos corretos
-                      final preco = int.tryParse(controllerValue.text) ?? 0;
+                      final preco = double.tryParse(controllerValue.text) ?? 0;
                       final telefone =
                           int.tryParse(controllerTelephone.text) ?? 0;
 
-                      // Chamar a função saveAnnouncement
                       final success =
                           await AnnouncementController().saveAnnouncement(
                         categoria: controllerCategory.text,
-                        data_colheita: controllerHarvestDate.text,
+                        data_colheita: selectedDate ?? DateTime.now(),
                         status: controllerStatus.text,
                         preco: preco,
                         telefone: telefone,

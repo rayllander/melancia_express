@@ -23,8 +23,8 @@ class AnnouncementController {
   Future<bool> saveAnnouncement({
     required String categoria,
     required String status,
-    required int preco,
-    required String data_colheita,
+    required double preco, // Alterado para double
+    required DateTime data_colheita,
     required int telefone,
     required String email,
     required BuildContext context,
@@ -34,26 +34,26 @@ class AnnouncementController {
       if (categoria.isEmpty ||
           status.isEmpty ||
           preco <= 0 ||
-          data_colheita.isEmpty ||
           telefone <= 0 ||
           email.isEmpty) {
         print('Campos obrigatórios não podem ser vazios.');
         return false;
       }
 
-      // Se necessário, você pode adicionar verificações adicionais aqui, como validar o formato da data, etc.
-
       // Continua com o salvamento do anúncio
       var userId = await getUserId();
       if (userId != null) {
         final announcement = ParseObject('Anuncio')
           ..set('categoria', categoria)
-          ..set<int>('preco', preco)
+          ..set<double>('preco', preco) // Alterado para set<double>
           ..set('status', status)
           ..set('data_colheita', data_colheita)
           ..set<int>('telefone', telefone)
-          ..set('email', email)
-          ..set('usuario_pointer', userId);
+          ..set('email', email);
+
+        // Cria um ponteiro para o usuário sem carregar todos os dados
+        var userPointer = ParseObject('_User')..set('objectId', userId);
+        announcement.set<ParseObject>('usuario_pointer', userPointer);
 
         await announcement.save();
         print('Anúncio salvo com sucesso!');
