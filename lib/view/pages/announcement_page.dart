@@ -7,7 +7,6 @@ import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_textfield.dart';
 import 'package:melancia_express/view/components/my_Photofield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
-import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 // ignore: must_be_immutable
 class AnnouncementPage extends StatelessWidget {
@@ -19,16 +18,6 @@ class AnnouncementPage extends StatelessWidget {
   TextEditingController controllerValue = TextEditingController();
   TextEditingController controllerTelephone = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
-
-  Future<ParseUser?> getUser() async {
-    var currentUser = await ParseUser.currentUser() as ParseUser?;
-    return currentUser;
-  }
-
-  Future<String?> getUserId() async {
-    var user = await getUser();
-    return user?.objectId;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,47 +82,39 @@ class AnnouncementPage extends StatelessWidget {
                   buttonText: 'SALVAR',
                   onTapButton: () async {
                     try {
-                      var userId = await getUserId();
-                      if (userId != null) {
-                        // Validar se os campos obrigatórios estão preenchidos
-                        if (controllerCategory.text.isEmpty ||
-                            controllerHarvestDate.text.isEmpty ||
-                            controllerStatus.text.isEmpty ||
-                            controllerValue.text.isEmpty ||
-                            controllerTelephone.text.isEmpty ||
-                            controllerEmail.text.isEmpty) {
-                          displayMessage(
-                              'Preencha todos os campos obrigatórios', context);
-                          return;
-                        }
-
-                        // Convertendo os valores para os tipos corretos
-                        final preco = int.tryParse(controllerValue.text) ?? 0;
-                        final telefone =
-                            int.tryParse(controllerTelephone.text) ?? 0;
-
-                        // Chamar a função saveAnnouncement
-                        final success =
-                            await AnnouncementController().saveAnnouncement(
-                          usuario_pointer: userId,
-                          categoria: controllerCategory.text,
-                          data_colheita: controllerHarvestDate.text,
-                          status: controllerStatus.text,
-                          preco: preco,
-                          telefone: telefone,
-                          email: controllerEmail.text,
-                          context: context,
-                        );
-
-                        if (success) {
-                          displayMessage('Anúncio salvo com sucesso!', context);
-                        } else {
-                          displayMessage('Erro ao salvar o anúncio.', context);
-                        }
-                      } else {
+                      // Validar se os campos obrigatórios estão preenchidos
+                      if (controllerCategory.text.isEmpty ||
+                          controllerHarvestDate.text.isEmpty ||
+                          controllerStatus.text.isEmpty ||
+                          controllerValue.text.isEmpty ||
+                          controllerTelephone.text.isEmpty ||
+                          controllerEmail.text.isEmpty) {
                         displayMessage(
-                            'Usuário não encontrado. ObjectId: $userId',
-                            context);
+                            'Preencha todos os campos obrigatórios', context);
+                        return;
+                      }
+
+                      // Convertendo os valores para os tipos corretos
+                      final preco = int.tryParse(controllerValue.text) ?? 0;
+                      final telefone =
+                          int.tryParse(controllerTelephone.text) ?? 0;
+
+                      // Chamar a função saveAnnouncement
+                      final success =
+                          await AnnouncementController().saveAnnouncement(
+                        categoria: controllerCategory.text,
+                        data_colheita: controllerHarvestDate.text,
+                        status: controllerStatus.text,
+                        preco: preco,
+                        telefone: telefone,
+                        email: controllerEmail.text,
+                        context: context,
+                      );
+
+                      if (success) {
+                        displayMessage('Anúncio salvo com sucesso!', context);
+                      } else {
+                        displayMessage('Erro ao salvar o anúncio.', context);
                       }
                     } catch (e) {
                       displayMessage('Erro ao salvar o anúncio: $e', context);

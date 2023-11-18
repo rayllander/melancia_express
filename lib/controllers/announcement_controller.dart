@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
@@ -16,6 +15,11 @@ class AnnouncementController {
     );
   }
 
+  Future<String?> getUserId() async {
+    var currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser?.objectId;
+  }
+
   Future<bool> saveAnnouncement({
     required String categoria,
     required String status,
@@ -23,33 +27,51 @@ class AnnouncementController {
     required String data_colheita,
     required int telefone,
     required String email,
-    required String usuario_pointer,
     required BuildContext context,
   }) async {
     try {
-      final announcement = ParseObject('Anuncio')
-        ..set('categoria', categoria)
-        ..set<int>('preco', preco)
-        ..set('status', status)
-        ..set('data_colheita', data_colheita)
-        ..set<int>('telefone', telefone)
-        ..set('email', email)
-        ..set('usuario_pointer', usuario_pointer);
+      // Validação de campos obrigatórios
+      if (categoria.isEmpty ||
+          status.isEmpty ||
+          preco <= 0 ||
+          data_colheita.isEmpty ||
+          telefone <= 0 ||
+          email.isEmpty) {
+        print('Campos obrigatórios não podem ser vazios.');
+        return false;
+      }
 
-      await announcement.save();
-      log('Anúncio salvo com sucesso!');
-      // Imprimir os valores após o anúncio ter sido salvo
-      print('Anúncio salvo com os seguintes valores:');
-      print('Categoria: $categoria');
-      print('Preço: $preco');
-      print('Status: $status');
-      print('Data Colheita: $data_colheita');
-      print('Telefone: $telefone');
-      print('E-mail: $email');
-      print('Usuario Pointer: $usuario_pointer');
-      return true;
+      // Se necessário, você pode adicionar verificações adicionais aqui, como validar o formato da data, etc.
+
+      // Continua com o salvamento do anúncio
+      var userId = await getUserId();
+      if (userId != null) {
+        final announcement = ParseObject('Anuncio')
+          ..set('categoria', categoria)
+          ..set<int>('preco', preco)
+          ..set('status', status)
+          ..set('data_colheita', data_colheita)
+          ..set<int>('telefone', telefone)
+          ..set('email', email)
+          ..set('usuario_pointer', userId);
+
+        await announcement.save();
+        print('Anúncio salvo com sucesso!');
+        print('Anúncio salvo com os seguintes valores:');
+        print('Categoria: $categoria');
+        print('Preço: $preco');
+        print('Status: $status');
+        print('Data Colheita: $data_colheita');
+        print('Telefone: $telefone');
+        print('E-mail: $email');
+        print('Usuario Pointer: $userId');
+        return true;
+      } else {
+        print('Usuário não encontrado.');
+        return false;
+      }
     } catch (e) {
-      log('Erro ao salvar o anúncio: $e');
+      print('Erro ao salvar o anúncio: $e');
       return false;
     }
   }
