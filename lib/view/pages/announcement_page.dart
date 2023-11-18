@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:melancia_express/controllers/announcement_controller.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_textfield.dart';
 import 'package:melancia_express/view/components/my_Photofield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
-//import 'package:melancia_express/controllers/announcement_controller.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 // ignore: must_be_immutable
 class AnnouncementPage extends StatelessWidget {
@@ -19,7 +20,15 @@ class AnnouncementPage extends StatelessWidget {
   TextEditingController controllerTelephone = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
 
-  //XFile? _selectedImage;
+  Future<ParseUser?> getUser() async {
+    var currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
+
+  Future<String?> getUserId() async {
+    var user = await getUser();
+    return user?.objectId;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +83,7 @@ class AnnouncementPage extends StatelessWidget {
               SizedBox(height: 20),
               MyTextField(
                 hintText: 'E-mail',
-                obscureText: true,
+                obscureText: false,
                 controller: controllerEmail,
               ),
               SizedBox(height: 20),
@@ -84,20 +93,50 @@ class AnnouncementPage extends StatelessWidget {
                   buttonText: 'SALVAR',
                   onTapButton: () async {
                     try {
-                      /*await AnnouncementController().saveAnnouncement(
-                        context: context,
-                        category: controllerCategory.text,
-                        harvestDate: controllerHarvestDate.text,
-                        status: controllerStatus.text,
-                        value: controllerValue.text,
-                        telephone: controllerTelephone.text,
-                        email: controllerEmail.text,
-                        selectedImage: _selectedImage,
-                      );*/
+                      var userId = await getUserId();
+                      if (userId != null) {
+                        // Validar se os campos obrigatórios estão preenchidos
+                        if (controllerCategory.text.isEmpty ||
+                            controllerHarvestDate.text.isEmpty ||
+                            controllerStatus.text.isEmpty ||
+                            controllerValue.text.isEmpty ||
+                            controllerTelephone.text.isEmpty ||
+                            controllerEmail.text.isEmpty) {
+                          displayMessage(
+                              'Preencha todos os campos obrigatórios', context);
+                          return;
+                        }
 
-                      displayMessage('Anúncio salvo com sucesso!', context);
+                        // Convertendo os valores para os tipos corretos
+                        final preco = int.tryParse(controllerValue.text) ?? 0;
+                        final telefone =
+                            int.tryParse(controllerTelephone.text) ?? 0;
+
+                        // Chamar a função saveAnnouncement
+                        final success =
+                            await AnnouncementController().saveAnnouncement(
+                          usuario_pointer: userId,
+                          categoria: controllerCategory.text,
+                          data_colheita: controllerHarvestDate.text,
+                          status: controllerStatus.text,
+                          preco: preco,
+                          telefone: telefone,
+                          email: controllerEmail.text,
+                          context: context,
+                        );
+
+                        if (success) {
+                          displayMessage('Anúncio salvo com sucesso!', context);
+                        } else {
+                          displayMessage('Erro ao salvar o anúncio.', context);
+                        }
+                      } else {
+                        displayMessage(
+                            'Usuário não encontrado. ObjectId: $userId',
+                            context);
+                      }
                     } catch (e) {
-                      displayMessage('Erro ao salvar o anúncio.', context);
+                      displayMessage('Erro ao salvar o anúncio: $e', context);
                       log(e.toString());
                     }
                   },
