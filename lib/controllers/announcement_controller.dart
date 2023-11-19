@@ -23,6 +23,25 @@ class AnnouncementController {
     return currentUser?.objectId;
   }
 
+  Future<List<ParseObject>> getUserAnnouncements() async {
+    try {
+      var userId = await getUserId();
+      if (userId != null) {
+        var queryBuilder = QueryBuilder(ParseObject('Anuncio'))
+          ..whereEqualTo('usuario_pointer', ParseObject('_User')..set('objectId', userId));
+
+        var response = await queryBuilder.query();
+        if (response.success && response.results != null) {
+          return response.results as List<ParseObject>;
+        }
+      }
+      return [];
+    } catch (e) {
+      print('Erro ao obter os anúncios do usuário: $e');
+      return [];
+    }
+  }
+
   Future<bool> saveAnnouncement({
     required String categoria,
     required String status,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MyBanner extends StatelessWidget {
-  final String imagePath;
+  final String imageUrl;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
   MyBanner({
     Key? key,
-    required this.imagePath,
+    required this.imageUrl,
     required this.onEdit,
     required this.onDelete,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class MyBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -37,11 +37,13 @@ class MyBanner extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 300.0, // Defina a altura desejada para a imagem
+                  height: 300.0, // Defina a altura desejada para o contêiner
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: Image.asset(
-                      imagePath,
+                    child: Image.network(
+                      imageUrl,
+                      width: double.infinity, // Ocupar a largura total do contêiner
+                      height: double.infinity, // Ocupar a altura total do contêiner
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -62,6 +64,7 @@ class MyBanner extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 20), // Espaço entre os banners
         ],
       ),
     );
