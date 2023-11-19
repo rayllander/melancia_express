@@ -15,7 +15,8 @@ class ForgotPage extends StatelessWidget {
     try {
       // Validação do campo de e-mail
       if (controllerEmail.text.isEmpty) {
-        displayMessage('preencha com seu email', context);
+        displayMessage('preencha com seu email', context,
+            onButtonPressed: () {}, buttonText: '');
 
         return;
       }
@@ -29,9 +30,12 @@ class ForgotPage extends StatelessWidget {
       // Adicione aqui sua lógica de sucesso, por exemplo, mostrar uma mensagem ao usuário
       displayMessage(
           'Solicitação de redefinição de senha enviada com sucesso. Um email foi enviado para a redefinição!',
-          context);
+          context,
+          onButtonPressed: () {},
+          buttonText: '');
     } catch (e) {
-      displayMessage('Erro ao solicitar redefinição de senha: $e', context);
+      displayMessage('Erro ao solicitar redefinição de senha: $e', context,
+          onButtonPressed: () {}, buttonText: '');
     }
   }
 

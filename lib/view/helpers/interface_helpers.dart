@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-void displayMessage(String message, BuildContext context) {
+void displayMessage(String message, BuildContext context,
+    {required Null Function() onButtonPressed, required String buttonText}) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(

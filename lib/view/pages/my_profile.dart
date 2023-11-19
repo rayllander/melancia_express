@@ -49,7 +49,8 @@ class MyPerfil extends StatelessWidget {
                 child: MyButton(
                   buttonText: 'SALVAR',
                   onTapButton: () {
-                    displayMessage('Registrado', context);
+                    displayMessage('Registrado', context,
+                        onButtonPressed: () {}, buttonText: '');
                   },
                 ),
               )

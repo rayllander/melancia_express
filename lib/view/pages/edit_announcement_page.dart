@@ -114,7 +114,8 @@ class EditAnnouncement extends StatelessWidget {
                     MyButton(
                       buttonText: 'SALVAR',
                       onTapButton: () {
-                        displayMessage('Registrado', context);
+                        displayMessage('Registrado', context,
+                            onButtonPressed: () {}, buttonText: '');
                       },
                     ),
                   ],

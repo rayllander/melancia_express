@@ -83,7 +83,8 @@ class LoginPage extends StatelessWidget {
                             if (controllerEmail.text.isEmpty ||
                                 controllerPass.text.isEmpty) {
                               displayMessage(
-                                  'preencha todos os campos', context);
+                                  'preencha todos os campos', context,
+                                  onButtonPressed: () {}, buttonText: '');
                               return;
                             }
                             //método de login do LoginController
@@ -98,11 +99,13 @@ class LoginPage extends StatelessWidget {
                                 goToHome(context);
                               } else {
                                 displayMessage(
-                                    'usuario não encontrado', context);
+                                    'usuario não encontrado', context,
+                                    onButtonPressed: () {}, buttonText: '');
                               }
                             } catch (e) {
                               print('Erro ao fazer login: $e');
-                              displayMessage('ERRO', context);
+                              displayMessage('ERRO', context,
+                                  onButtonPressed: () {}, buttonText: '');
                             }
                           },
                         ),

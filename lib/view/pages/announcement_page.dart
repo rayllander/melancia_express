@@ -8,6 +8,7 @@ import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_textfield.dart';
 import 'package:melancia_express/view/components/my_Photofield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
+import 'package:melancia_express/view/helpers/rout_helpers.dart';
 
 // ignore: must_be_immutable
 class AnnouncementPage extends StatelessWidget {
@@ -19,6 +20,7 @@ class AnnouncementPage extends StatelessWidget {
   TextEditingController controllerTelephone = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
   DateTime? selectedDate;
+  XFile? selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class AnnouncementPage extends StatelessWidget {
                 padding: const EdgeInsets.all(0.0),
                 child: PhotoField(
                   onImageSelected: (XFile? selectedImage) {
-                    //_selectedImage = selectedImage;
+                    this.selectedImage = selectedImage;
                   },
                 ),
               ),
@@ -106,9 +108,11 @@ class AnnouncementPage extends StatelessWidget {
                           controllerStatus.text.isEmpty ||
                           controllerValue.text.isEmpty ||
                           controllerTelephone.text.isEmpty ||
-                          controllerEmail.text.isEmpty) {
+                          controllerEmail.text.isEmpty ||
+                          selectedImage == null) {
                         displayMessage(
-                            'Preencha todos os campos obrigatórios', context);
+                            'Preencha todos os campos obrigatórios', context,
+                            onButtonPressed: () {}, buttonText: '');
                         return;
                       }
 
@@ -124,16 +128,69 @@ class AnnouncementPage extends StatelessWidget {
                         preco: preco,
                         telefone: telefone,
                         email: controllerEmail.text,
+                        foto: selectedImage,
                         context: context,
                       );
 
                       if (success) {
-                        displayMessage('Anúncio salvo com sucesso!', context);
+                        // Exibir mensagem com informações sobre o anúncio salvo
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Anúncio Salvo com Sucesso!'),
+                              content: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Categoria: ${controllerCategory.text}'),
+                                  Text('Preço: ${preco.toString()}'),
+                                  Text('Status: ${controllerStatus.text}'),
+                                  Text(
+                                      'Data Colheita: ${DateFormat('dd/MM/yyyy').format(selectedDate ?? DateTime.now())}'),
+                                  Text('Telefone: ${telefone.toString()}'),
+                                  Text('E-mail: ${controllerEmail.text}'),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                  style: ButtonStyle(
+                                    side: MaterialStateProperty.all(
+                                      BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Fechar o diálogo
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+
+                        // Limpar os campos após o sucesso
+                        controllerCategory.clear();
+                        controllerStatus.clear();
+                        controllerValue.clear();
+                        controllerTelephone.clear();
+                        controllerEmail.clear();
+                        controllerDatetime.clear();
+                        selectedDate = null;
+                        selectedImage = null;
+
+                        // Navegar para a tela inicial
+                        goToHome(context);
                       } else {
-                        displayMessage('Erro ao salvar o anúncio.', context);
+                        displayMessage('Erro ao salvar o anúncio.', context,
+                            onButtonPressed: () {}, buttonText: '');
                       }
                     } catch (e) {
-                      displayMessage('Erro ao salvar o anúncio: $e', context);
+                      displayMessage('Erro ao salvar o anúncio: $e', context,
+                          onButtonPressed: () {}, buttonText: '');
                       log(e.toString());
                     }
                   },

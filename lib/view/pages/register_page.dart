@@ -106,11 +106,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             // Registro bem-sucedido, exibe mensagem ou navega para outra tela
                             displayMessage(
                                 'Registrado com sucesso, ative a conta no email!',
-                                context);
+                                context,
+                                onButtonPressed: () {},
+                                buttonText: '');
                           } else {
                             // Registro falhou, exibe mensagem de erro ou realiza ações apropriadas
-                            displayMessage(
-                                'Erro ao registrar usuário', context);
+                            displayMessage('Erro ao registrar usuário', context,
+                                onButtonPressed: () {}, buttonText: '');
                           }
                         },
                       ),
