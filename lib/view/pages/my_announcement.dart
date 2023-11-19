@@ -11,7 +11,7 @@ class MyAnnouncement extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: 'MEUS ANÚNCIOS'), // Usar o MyAppBar personalizado
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(100.0),
+        padding: const EdgeInsets.all(40.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -32,22 +32,6 @@ class MyAnnouncement extends StatelessWidget {
               },
             ),
             SizedBox(height: 25),
-            MyBanner(
-              imagePath:
-                  'assets/images/imagem1.png', // Especifique o caminho da imagem
-              onEdit: () {
-                // Lógica de edição
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          EditAnnouncement()), // Navegar para a página de edição
-                );
-              },
-              onDelete: () {
-                // Lógica de exclusão
-              },
-            ),
           ],
         ),
       ),

@@ -15,7 +15,7 @@ class MyBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
