@@ -32,6 +32,16 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
     }
   }
 
+  Future<void> _deleteAnnouncement(String announcementId) async {
+    final success = await _announcementController.deleteAnnouncement(announcementId);
+    if (success) {
+      _loadUserAnnouncements();
+    } else {
+      // Exibira mensagem de erro ou tratar de outra forma
+      print('Erro ao excluir o anúncio.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +62,41 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                     // Implemente a lógica de edição
                   },
                   onDelete: () {
-                    // Implemente a lógica de exclusão
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Excluir Anúncio'),
+                          content: Text('Deseja realmente excluir este anúncio?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Cancelar'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                _deleteAnnouncement(announcementId);
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'Excluir',
+                                style: TextStyle(
+                                  color: Colors.red, // Texto vermelho
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Fundo branco
+                                side: MaterialStateProperty.all<BorderSide>(
+                                  BorderSide(color: Colors.red), // Borda vermelha
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
                 SizedBox(height: 20), // Espaço entre os banners

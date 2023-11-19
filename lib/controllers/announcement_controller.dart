@@ -42,6 +42,17 @@ class AnnouncementController {
     }
   }
 
+  Future<bool> deleteAnnouncement(String announcementId) async {
+  try {
+    final ParseObject announcement = ParseObject('Anuncio')..set('objectId', announcementId);
+    final response = await announcement.delete();
+    return response.success;
+  } catch (e) {
+    print('Erro ao excluir o anúncio: $e');
+    return false;
+  }
+}
+
   Future<bool> saveAnnouncement({
     required String categoria,
     required String status,
