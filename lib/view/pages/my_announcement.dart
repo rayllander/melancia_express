@@ -37,7 +37,7 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
     if (success) {
       _loadUserAnnouncements();
     } else {
-      // Exibira mensagem de erro ou tratar de outra forma
+      // Exibir mensagem de erro ou tratar de outra forma
       print('Erro ao excluir o anúncio.');
     }
   }
@@ -59,7 +59,7 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                   key: Key(announcementId),
                   imageUrl: imageUrl,
                   onEdit: () {
-                    // Implemente a lógica de edição
+                    // Implementar a lógica de edição
                   },
                   onDelete: () {
                     showDialog(
@@ -73,7 +73,18 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text('Cancelar'),
+                              child: Text(
+                                'Cancelar',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                side: MaterialStateProperty.all<BorderSide>(
+                                  BorderSide(color: Colors.red),
+                                ),
+                              ),
                             ),
                             TextButton(
                               onPressed: () {
@@ -83,13 +94,13 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                               child: Text(
                                 'Excluir',
                                 style: TextStyle(
-                                  color: Colors.red, // Texto vermelho
+                                  color: Colors.white,
                                 ),
                               ),
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Fundo branco
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                                 side: MaterialStateProperty.all<BorderSide>(
-                                  BorderSide(color: Colors.red), // Borda vermelha
+                                  BorderSide(color: Colors.red),
                                 ),
                               ),
                             ),
