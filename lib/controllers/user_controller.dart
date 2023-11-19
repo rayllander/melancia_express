@@ -118,6 +118,26 @@ class UserController {
     }
   }
 
+Future<void> saveUserChanges({
+    required String username,
+    required String telefone,
+  }) async {
+    await initializeParse();
+    ParseUser? currentUser = await getUser();
+
+    if (currentUser != null) {
+      currentUser.set<String>('username', username);
+      currentUser.set<int>('telefone', int.parse(telefone));
+
+      try {
+        await currentUser.save();
+        print('Alterações salvas com sucesso!');
+      } catch (e) {
+        print('Erro ao salvar as alterações: $e');
+      }
+    }
+  }
+  
   Future<ParseUser?> getUser() async {
     var currentUser = await ParseUser.currentUser() as ParseUser?;
     return currentUser;

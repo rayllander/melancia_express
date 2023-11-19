@@ -1,19 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:melancia_express/controllers/user_controller.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
+import 'package:melancia_express/view/components/my_blocktextfield.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_edittextfield.dart';
-import 'package:melancia_express/view/helpers/interface_helpers.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-// ignore: must_be_immutable
-class MyPerfil extends StatelessWidget {
-  MyPerfil({super.key});
-  TextEditingController controllerUserName = TextEditingController();
-  TextEditingController controllerEmail = TextEditingController();
-  TextEditingController controllerPass = TextEditingController();
+class MyPerfil extends StatefulWidget {
+  const MyPerfil({Key? key}) : super(key: key);
+
+  @override
+  _MyPerfilState createState() => _MyPerfilState();
+}
+
+class _MyPerfilState extends State<MyPerfil> {
+  late TextEditingController controllerUserName;
+  late TextEditingController controllerTelefone;
+  late TextEditingController controllerEmail;
+  late TextEditingController controllerPass;
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicialize os controladores com os dados do usuário atual
+    initializeControllers();
+  }
+
+  Future<void> initializeControllers() async {
+    UserController userController = UserController();
+    await userController.initializeParse();
+    ParseUser? currentUser = await userController.getUser();
+
+    if (currentUser != null) {
+      setState(() {
+        controllerUserName = TextEditingController(text: currentUser.username);
+        controllerTelefone =
+            TextEditingController(text: currentUser.get<int>('telefone')?.toString() ?? '');
+        controllerEmail = TextEditingController(text: currentUser.get<String>('email') ?? '');
+        controllerPass = TextEditingController(); // A senha não deve ser exibida
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'MEU PERFIL'),
+      appBar: MyAppBar(title: controllerUserName.text),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
@@ -29,16 +61,16 @@ class MyPerfil extends StatelessWidget {
               MyEditTextField(
                 hintText: 'Telefone',
                 obscureText: false,
-                controller: controllerEmail,
+                controller: controllerTelefone,
               ),
               const SizedBox(height: 15),
-              MyEditTextField(
+              MyBlockTextField(
                 hintText: 'Email',
                 obscureText: false,
                 controller: controllerEmail,
               ),
               const SizedBox(height: 15),
-              MyEditTextField(
+              MyBlockTextField(
                 hintText: 'Senha',
                 obscureText: true,
                 controller: controllerPass,
@@ -48,12 +80,16 @@ class MyPerfil extends StatelessWidget {
                 padding: const EdgeInsets.all(60.0),
                 child: MyButton(
                   buttonText: 'SALVAR',
-                  onTapButton: () {
-                    displayMessage('Registrado', context,
-                        onButtonPressed: () {}, buttonText: '');
+                  onTapButton: () async {
+                    UserController userController = UserController();
+                    await userController.initializeParse();
+                    await userController.saveUserChanges(
+                      username: controllerUserName.text,
+                      telefone: controllerTelefone.text,
+                    );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
