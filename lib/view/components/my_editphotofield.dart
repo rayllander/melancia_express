@@ -26,38 +26,40 @@ class _PhotoFieldEditState extends State<PhotoFieldEdit> {
       },
       child: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Container(
-              width: 120,
-              height: 105,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Color(0xFFBEBDBD),
-                ),
-                color: Color(0xFFD9D9D9),
+          Container(
+            height: 200.0,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Color(0xFFBEBDBD),
               ),
-              child: _isEdited
-                  ? Container() // Se a imagem foi editada, não mostrar o ícone
-                  : BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: Container(
-                        color: Colors.transparent,
+              color: Color(0xFFD9D9D9),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                _isEdited
+                    ? Container() // Se a imagem foi editada, não mostrar o ícone
+                    : BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                        child: Container(
+                          color: Colors.transparent,
+                        ),
                       ),
-                    ),
+                _isEdited
+                    ? Container() // Se a imagem foi editada, não mostrar o ícone
+                    : Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.edit,
+                            color: Color(0xFF757575), // Cor do ícone de edição
+                          ),
+                        ),
+                      ),
+              ],
             ),
           ),
-          _isEdited
-              ? Container() // Se a imagem foi editada, não mostrar o ícone
-              : Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Icon(
-                      Icons.edit,
-                      color: Color(0xFF757575), // Cor do ícone de edição
-                    ),
-                  ),
-                ),
         ],
       ),
     );

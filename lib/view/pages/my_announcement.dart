@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:melancia_express/controllers/announcement_controller.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_banner.dart';
+import 'package:melancia_express/view/pages/edit_announcement_page.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class MyAnnouncement extends StatefulWidget {
@@ -37,8 +38,20 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
     if (success) {
       _loadUserAnnouncements();
     } else {
-      // Exibir mensagem de erro ou tratar de outra forma
       print('Erro ao excluir o anúncio.');
+    }
+  }
+
+  Future<void> _navigateToEditAnnouncement(String announcementId) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditAnnouncement(announcementId: announcementId)),
+    );
+
+    // Atualize a lista apenas se a tela de edição retornar algum resultado,
+    // por exemplo, se o usuário salvar as alterações
+    if (result != null) {
+      _loadUserAnnouncements();
     }
   }
 
@@ -59,7 +72,7 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                   key: Key(announcementId),
                   imageUrl: imageUrl,
                   onEdit: () {
-                    // Implementar a lógica de edição
+                    _navigateToEditAnnouncement(announcementId);
                   },
                   onDelete: () {
                     showDialog(
@@ -110,7 +123,7 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                     );
                   },
                 ),
-                SizedBox(height: 20), // Espaço entre os banners
+                SizedBox(height: 20),
               ],
             );
           }).toList(),

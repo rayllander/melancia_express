@@ -48,7 +48,7 @@ class MelanciaExpress extends StatelessWidget {
         '/Filter': (context) => FilterPage(),
         '/MyPerfil': (context) => MyPerfil(),
         '/MyAnnouncement': (context) => MyAnnouncement(),
-        '/EditAnnouncement': (context) => EditAnnouncement(),
+        '/EditAnnouncement': (context) => EditAnnouncement(announcementId: 'announcementId',),
         '/SearchResults': (context) => SearchResultsPage(
               searchResults: [],
             ),
