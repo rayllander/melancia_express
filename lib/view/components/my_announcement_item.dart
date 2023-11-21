@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:melancia_express/model/anuncio.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+import 'package:intl/intl.dart';
 
-class AnuncioItem extends StatefulWidget {
-  final Anuncio anuncio;
+class AnnouncementItem extends StatefulWidget {
+  final ParseObject announcement;
 
-  AnuncioItem({required this.anuncio});
+  AnnouncementItem({required this.announcement, required ValueKey<int> key});
 
   @override
-  _AnuncioItemState createState() => _AnuncioItemState();
+  _AnnouncementItemState createState() => _AnnouncementItemState();
 }
 
-class _AnuncioItemState extends State<AnuncioItem> {
+class _AnnouncementItemState extends State<AnnouncementItem> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
@@ -23,7 +24,14 @@ class _AnuncioItemState extends State<AnuncioItem> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> imagens = widget.anuncio.listaDeImagens;
+    String imageUrl = widget.announcement.get<ParseFileBase>('foto')?.url ?? '';
+
+    // Formate a data usando DateFormat
+    String formattedDate = '';
+    DateTime? dateColheita = widget.announcement.get<DateTime>('data_colheita');
+    if (dateColheita != null) {
+      formattedDate = DateFormat('dd/MM/yyyy').format(dateColheita);
+    }
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -43,26 +51,16 @@ class _AnuncioItemState extends State<AnuncioItem> {
               children: [
                 Container(
                   height: 250,
-                  child: PageView(
-                    controller: _pageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    },
-                    children: imagens
-                        .map((imagemUrl) => ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset(
-                                imagemUrl,
-                                fit: BoxFit.cover,
-                              ),
-                            ))
-                        .toList(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 DotsIndicator(
-                  dotsCount: imagens.length,
+                  dotsCount: 1,
                   position: _currentIndex.toDouble(),
                   decorator: DotsDecorator(
                     color: Colors.grey,
@@ -82,21 +80,22 @@ class _AnuncioItemState extends State<AnuncioItem> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Categoria: ${widget.anuncio.categoria}",
+                                "Categoria: ${widget.announcement.get('categoria') ?? ''}",
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
                               SizedBox(height: 10),
                               Text(
-                                "Status: ${widget.anuncio.status}",
+                                "Status: ${widget.announcement.get('status') ?? ''}",
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
                               SizedBox(height: 10),
+                              // Exibe a data formatada
                               Text(
-                                "Data de Colheita: ${widget.anuncio.dataColheita}",
+                                "Data de Colheita: $formattedDate",
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -118,7 +117,7 @@ class _AnuncioItemState extends State<AnuncioItem> {
                                 ),
                                 SizedBox(width: 5),
                                 Text(
-                                  "${widget.anuncio.preco.toStringAsFixed(2)}",
+                                  "${widget.announcement.get('preco')?.toStringAsFixed(2) ?? ''}",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.white,
@@ -145,7 +144,7 @@ class _AnuncioItemState extends State<AnuncioItem> {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            "${widget.anuncio.telefone}",
+                            "${widget.announcement.get('telefone') ?? ''}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -168,7 +167,7 @@ class _AnuncioItemState extends State<AnuncioItem> {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            "${widget.anuncio.email}",
+                            "${widget.announcement.get('email') ?? ''}",
                             style: TextStyle(
                               fontSize: 16,
                             ),

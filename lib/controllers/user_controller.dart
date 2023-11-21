@@ -121,7 +121,7 @@ class UserController {
   Future<List<String>> getUsersList() async {
     final query = QueryBuilder(ParseObject('_User'));
     final result = await query.query();
-    
+
     if (result.results != null && result.results!.isNotEmpty) {
       return result.results!.map<String>((user) => user['username']).toList();
     } else {
@@ -129,22 +129,20 @@ class UserController {
     }
   }
 
- Future<List<String>> searchUsersByName(String name) async {
-  final query = QueryBuilder(ParseObject('_User'))
-    ..whereContains('username', name)
-    ..orderByAscending('username'); // Adicione esta linha para ordenar por username
-  final result = await query.query();
+  Future<List<String>> searchUsersByNameStartingWith(String name) async {
+    final query = QueryBuilder(ParseObject('_User'))
+      ..whereStartsWith('username', name)
+      ..orderByAscending('username');
+    final result = await query.query();
 
-  if (result.results != null && result.results!.isNotEmpty) {
-    return result.results!.map<String>((user) => user['username']).toList();
-  } else {
-    return [];
+    if (result.results != null && result.results!.isNotEmpty) {
+      return result.results!.map<String>((user) => user['username']).toList();
+    } else {
+      return [];
+    }
   }
-}
 
-  
-
-Future<void> saveUserChanges({
+  Future<void> saveUserChanges({
     required String username,
     required String telefone,
   }) async {
@@ -163,7 +161,7 @@ Future<void> saveUserChanges({
       }
     }
   }
-  
+
   Future<ParseUser?> getUser() async {
     var currentUser = await ParseUser.currentUser() as ParseUser?;
     return currentUser;

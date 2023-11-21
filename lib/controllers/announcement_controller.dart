@@ -28,7 +28,8 @@ class AnnouncementController {
       var userId = await getUserId();
       if (userId != null) {
         var queryBuilder = QueryBuilder(ParseObject('Anuncio'))
-          ..whereEqualTo('usuario_pointer', ParseObject('_User')..set('objectId', userId));
+          ..whereEqualTo(
+              'usuario_pointer', ParseObject('_User')..set('objectId', userId));
 
         var response = await queryBuilder.query();
         if (response.success && response.results != null) {
@@ -43,15 +44,16 @@ class AnnouncementController {
   }
 
   Future<bool> deleteAnnouncement(String announcementId) async {
-  try {
-    final ParseObject announcement = ParseObject('Anuncio')..set('objectId', announcementId);
-    final response = await announcement.delete();
-    return response.success;
-  } catch (e) {
-    print('Erro ao excluir o anúncio: $e');
-    return false;
+    try {
+      final ParseObject announcement = ParseObject('Anuncio')
+        ..set('objectId', announcementId);
+      final response = await announcement.delete();
+      return response.success;
+    } catch (e) {
+      print('Erro ao excluir o anúncio: $e');
+      return false;
+    }
   }
-}
 
   Future<bool> saveAnnouncement({
     required String categoria,
@@ -135,6 +137,22 @@ class AnnouncementController {
     } catch (e) {
       print('Erro ao salvar o anúncio: $e');
       return false;
+    }
+  }
+
+  Future<List<ParseObject>> getAllAnnouncements() async {
+    try {
+      var queryBuilder = QueryBuilder(ParseObject('Anuncio'));
+
+      var response = await queryBuilder.query();
+      if (response.success && response.results != null) {
+        return response.results as List<ParseObject>;
+      }
+
+      return [];
+    } catch (e) {
+      print('Erro ao obter os anúncios: $e');
+      return [];
     }
   }
 }
