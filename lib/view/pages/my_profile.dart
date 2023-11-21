@@ -14,10 +14,10 @@ class MyPerfil extends StatefulWidget {
 }
 
 class _MyPerfilState extends State<MyPerfil> {
-  late TextEditingController controllerUserName;
-  late TextEditingController controllerTelefone;
-  late TextEditingController controllerEmail;
-  late TextEditingController controllerPass;
+  TextEditingController? controllerUserName;
+  TextEditingController? controllerTelefone;
+  TextEditingController? controllerEmail;
+  TextEditingController? controllerPass;
 
   @override
   void initState() {
@@ -31,21 +31,29 @@ class _MyPerfilState extends State<MyPerfil> {
     await userController.initializeParse();
     ParseUser? currentUser = await userController.getUser();
 
-    if (currentUser != null) {
-      setState(() {
-        controllerUserName = TextEditingController(text: currentUser.username);
-        controllerTelefone =
-            TextEditingController(text: currentUser.get<int>('telefone')?.toString() ?? '');
-        controllerEmail = TextEditingController(text: currentUser.get<String>('email') ?? '');
-        controllerPass = TextEditingController(); // A senha não deve ser exibida
-      });
-    }
+    setState(() {
+      controllerUserName =
+          TextEditingController(text: currentUser?.username ?? '');
+      controllerTelefone = TextEditingController(
+          text: currentUser?.get<int>('telefone')?.toString() ?? '');
+      controllerEmail =
+          TextEditingController(text: currentUser?.get<String>('email') ?? '');
+      controllerPass = TextEditingController(); // A senha não deve ser exibida
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    // Verifique se os controladores foram inicializados antes de construir o widget
+    if (controllerUserName == null ||
+        controllerTelefone == null ||
+        controllerEmail == null ||
+        controllerPass == null) {
+      return CircularProgressIndicator(); // ou qualquer indicador de carregamento que você preferir
+    }
+
     return Scaffold(
-      appBar: MyAppBar(title: controllerUserName.text),
+      appBar: MyAppBar(title: controllerUserName!.text),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
@@ -55,25 +63,25 @@ class _MyPerfilState extends State<MyPerfil> {
               MyEditTextField(
                 hintText: 'Nome',
                 obscureText: false,
-                controller: controllerUserName,
+                controller: controllerUserName!,
               ),
               const SizedBox(height: 15),
               MyEditTextField(
                 hintText: 'Telefone',
                 obscureText: false,
-                controller: controllerTelefone,
+                controller: controllerTelefone!,
               ),
               const SizedBox(height: 15),
               MyBlockTextField(
                 hintText: 'Email',
                 obscureText: false,
-                controller: controllerEmail,
+                controller: controllerEmail!,
               ),
               const SizedBox(height: 15),
               MyBlockTextField(
                 hintText: 'Senha',
                 obscureText: true,
-                controller: controllerPass,
+                controller: controllerPass!,
               ),
               const SizedBox(height: 100),
               Container(
@@ -84,8 +92,8 @@ class _MyPerfilState extends State<MyPerfil> {
                     UserController userController = UserController();
                     await userController.initializeParse();
                     await userController.saveUserChanges(
-                      username: controllerUserName.text,
-                      telefone: controllerTelefone.text,
+                      username: controllerUserName!.text,
+                      telefone: controllerTelefone!.text,
                     );
                   },
                 ),
