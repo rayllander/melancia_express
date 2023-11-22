@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:melancia_express/controllers/announcement_controller.dart';
 import 'package:melancia_express/view/components/my_appbar.dart';
 import 'package:melancia_express/view/components/my_button.dart';
 import 'package:melancia_express/view/components/my_editphotofield.dart';
 import 'package:melancia_express/view/components/my_edittextfield.dart';
-
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class EditAnnouncement extends StatefulWidget {
   final String announcementId;
@@ -18,7 +19,7 @@ class EditAnnouncement extends StatefulWidget {
 
 class _EditAnnouncementState extends State<EditAnnouncement> {
   TextEditingController controllerCategory = TextEditingController();
-  TextEditingController controllerHarvestDate = TextEditingController();
+  TextEditingController controllerDatetime = TextEditingController();
   TextEditingController controllerStatus = TextEditingController();
   TextEditingController controllerValue = TextEditingController();
   TextEditingController controllerTelephone = TextEditingController();
@@ -27,9 +28,48 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
   XFile? selectedImage;
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController controllerDatetime = TextEditingController();
+  void initState() {
+    super.initState();
 
+    _loadAnnouncementData();
+  }
+
+  void _loadAnnouncementData() async {
+    try {
+      var announcements = await AnnouncementController().getAllAnnouncements();
+      var announcementToEdit = announcements.firstWhere(
+        (announcement) => announcement.objectId == widget.announcementId,
+        orElse: () => ParseObject('Anuncio'),
+      );
+
+      // ignore: unnecessary_null_comparison
+      if (announcementToEdit != null) {
+        setState(() {
+          controllerCategory.text = announcementToEdit.get('categoria') ?? '';
+          controllerDatetime.text = DateFormat('dd/MM/yyyy').format(
+              announcementToEdit.get<DateTime>('data_colheita') ?? DateTime.now());
+          controllerStatus.text = announcementToEdit.get('status') ?? '';
+          controllerValue.text = announcementToEdit.get<double>('preco')?.toString() ?? '';
+          controllerTelephone.text = announcementToEdit.get<int>('telefone')?.toString() ?? '';
+          controllerEmail.text = announcementToEdit.get('email') ?? '';
+
+          var foto = announcementToEdit.get<ParseFileBase>('foto');
+          if (foto != null) {
+
+          }
+        });
+      } else {
+
+        print('Anúncio não encontrado');
+      }
+    } catch (e) {
+      // Handle errors
+      print('Erro ao carregar os dados do anúncio: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(title: 'EDITAR ANÚNCIO'),
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -122,8 +162,5 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
   }
 
   void _saveAnnouncement() {
-    // Implemente a lógica para salvar o anúncio aqui
-    // Utilize os valores dos controladores e o estado do componente
-    // Pode ser necessário chamar Navigator.pop(context, true) para indicar que as alterações foram salvas
   }
 }
