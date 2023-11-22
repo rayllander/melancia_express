@@ -3,8 +3,9 @@ import 'dart:ui';
 
 class PhotoFieldEdit extends StatefulWidget {
   final Function()? onTap;
+  final String? imageUrl; // Nova propriedade para a URL da imagem
 
-  const PhotoFieldEdit({Key? key, this.onTap}) : super(key: key);
+  const PhotoFieldEdit({Key? key, this.onTap, this.imageUrl}) : super(key: key);
 
   @override
   _PhotoFieldEditState createState() => _PhotoFieldEditState();
@@ -27,8 +28,7 @@ class _PhotoFieldEditState extends State<PhotoFieldEdit> {
       child: Stack(
         children: [
           Container(
-            height: 200.0,
-            width: double.infinity,
+            width: double.infinity, // Oculta a altura fixa e define a largura máxima
             decoration: BoxDecoration(
               border: Border.all(
                 color: Color(0xFFBEBDBD),
@@ -40,12 +40,18 @@ class _PhotoFieldEditState extends State<PhotoFieldEdit> {
               children: [
                 _isEdited
                     ? Container() // Se a imagem foi editada, não mostrar o ícone
-                    : BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                        child: Container(
-                          color: Colors.transparent,
-                        ),
-                      ),
+                    : widget.imageUrl != null
+                        ? Image.network(
+                            widget.imageUrl!,
+                            fit: BoxFit.cover, // Ajusta o fit para cobrir todo o espaço
+                            width: double.infinity, // Garante que a imagem ocupe toda a largura
+                          )
+                        : BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                            child: Container(
+                              color: Colors.transparent,
+                            ),
+                          ),
                 _isEdited
                     ? Container() // Se a imagem foi editada, não mostrar o ícone
                     : Positioned.fill(

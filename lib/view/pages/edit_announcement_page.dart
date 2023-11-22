@@ -26,11 +26,11 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
   TextEditingController controllerEmail = TextEditingController();
   DateTime? selectedDate;
   XFile? selectedImage;
+  String? imageUrl;
 
   @override
   void initState() {
     super.initState();
-
     _loadAnnouncementData();
   }
 
@@ -55,15 +55,13 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
 
           var foto = announcementToEdit.get<ParseFileBase>('foto');
           if (foto != null) {
-
+            imageUrl = foto.url;
           }
         });
       } else {
-
         print('Anúncio não encontrado');
       }
     } catch (e) {
-      // Handle errors
       print('Erro ao carregar os dados do anúncio: $e');
     }
   }
@@ -89,6 +87,7 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                     selectedImage = xFile;
                   });
                 },
+                imageUrl: imageUrl, // Passe a URL da imagem para o PhotoFieldEdit
               ),
               SizedBox(height: 20),
               MyEditTextField(
@@ -162,5 +161,6 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
   }
 
   void _saveAnnouncement() {
+    // Implemente a lógica para salvar o anúncio
   }
 }
