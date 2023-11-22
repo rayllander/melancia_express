@@ -9,6 +9,23 @@ class AnnouncementController {
   final keyClientKey = 'OVIBKpgVEjdWiuEsOoPG1kHCtS3BSAM4K6a2SIEI';
   final keyParseServerUrl = 'https://parseapi.back4app.com';
 
+  static const List<String> categoriasDisponiveis = [
+    'Sem semente',
+    'Polpa Amarela',
+    'Poupa Vermelha',
+    'Poupa Branca',
+    'Pretinha',
+    'Tradicional',
+  ];
+
+  static const List<String> statusDisponiveis = [
+    'Plantio',
+    'Crescimento',
+    'Colheita 1ª Panha',
+    'Colheita 2ª Panha',
+    'Colheita 3ª Panha',
+  ];
+
   Future<void> initializeParse() async {
     await Parse().initialize(
       keyApplicationId,
@@ -76,9 +93,10 @@ class AnnouncementController {
         return false;
       }
 
-      // Verifica se a imagem é nula
-      if (foto == null) {
-        print('A foto é obrigatória.');
+      // Verifica se a categoria e o status são válidos
+      if (!categoriasDisponiveis.contains(categoria) ||
+          !statusDisponiveis.contains(status)) {
+        print('Categoria ou status inválido.');
         return false;
       }
 
@@ -99,12 +117,12 @@ class AnnouncementController {
         if (kIsWeb) {
           // Flutter Web
           parseFile = ParseWebFile(
-            await foto.readAsBytes(),
+            await foto?.readAsBytes(),
             name: 'anuncio_foto.jpg',
           );
         } else {
           // Flutter Mobile
-          parseFile = ParseFile(File(foto.path), name: 'anuncio_foto.jpg');
+          parseFile = ParseFile(File(foto!.path), name: 'anuncio_foto.jpg');
         }
 
         // Salva o ParseFile antes de usar a URL

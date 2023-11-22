@@ -10,17 +10,29 @@ import 'package:melancia_express/view/components/my_Photofield.dart';
 import 'package:melancia_express/view/helpers/interface_helpers.dart';
 import 'package:melancia_express/view/helpers/rout_helpers.dart';
 
-// ignore: must_be_immutable
-class AnnouncementPage extends StatelessWidget {
-  AnnouncementPage({Key? key});
+class AnnouncementPage extends StatefulWidget {
+  AnnouncementPage({Key? key}) : super(key: key);
 
-  TextEditingController controllerCategory = TextEditingController();
-  TextEditingController controllerStatus = TextEditingController();
+  @override
+  _AnnouncementPageState createState() => _AnnouncementPageState();
+}
+
+class _AnnouncementPageState extends State<AnnouncementPage> {
   TextEditingController controllerValue = TextEditingController();
   TextEditingController controllerTelephone = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
   DateTime? selectedDate;
   XFile? selectedImage;
+
+  late String selectedCategory;
+  late String selectedStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedCategory = AnnouncementController.categoriasDisponiveis.first;
+    selectedStatus = AnnouncementController.statusDisponiveis.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +57,28 @@ class AnnouncementPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              MyTextField(
-                hintText: 'Categoria',
-                obscureText: false,
-                controller: controllerCategory,
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildDropDownField(
+                      label: 'Categoria',
+                      value: selectedCategory,
+                      onTap: () {
+                        _showCategoryPicker(context);
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildDropDownField(
+                      label: 'Status',
+                      value: selectedStatus,
+                      onTap: () {
+                        _showStatusPicker(context);
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 20),
               GestureDetector(
@@ -71,12 +101,6 @@ class AnnouncementPage extends StatelessWidget {
                   obscureText: false,
                   controller: controllerDatetime,
                 ),
-              ),
-              SizedBox(height: 20),
-              MyTextField(
-                hintText: 'Status',
-                obscureText: false,
-                controller: controllerStatus,
               ),
               SizedBox(height: 20),
               MyTextField(
@@ -103,9 +127,9 @@ class AnnouncementPage extends StatelessWidget {
                   buttonText: 'SALVAR',
                   onTapButton: () async {
                     try {
-                      if (controllerCategory.text.isEmpty ||
+                      if (selectedCategory.isEmpty ||
                           controllerDatetime.text.isEmpty ||
-                          controllerStatus.text.isEmpty ||
+                          selectedStatus.isEmpty ||
                           controllerValue.text.isEmpty ||
                           controllerTelephone.text.isEmpty ||
                           controllerEmail.text.isEmpty ||
@@ -122,9 +146,9 @@ class AnnouncementPage extends StatelessWidget {
 
                       final success =
                           await AnnouncementController().saveAnnouncement(
-                        categoria: controllerCategory.text,
+                        categoria: selectedCategory,
                         data_colheita: selectedDate ?? DateTime.now(),
-                        status: controllerStatus.text,
+                        status: selectedStatus,
                         preco: preco,
                         telefone: telefone,
                         email: controllerEmail.text,
@@ -142,9 +166,9 @@ class AnnouncementPage extends StatelessWidget {
                               content: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Categoria: ${controllerCategory.text}'),
+                                  Text('Categoria: $selectedCategory'),
                                   Text('Preço: ${preco.toString()}'),
-                                  Text('Status: ${controllerStatus.text}'),
+                                  Text('Status: $selectedStatus'),
                                   Text(
                                       'Data Colheita: ${DateFormat('dd/MM/yyyy').format(selectedDate ?? DateTime.now())}'),
                                   Text('Telefone: ${telefone.toString()}'),
@@ -173,8 +197,6 @@ class AnnouncementPage extends StatelessWidget {
                         );
 
                         // Limpar os campos após o sucesso
-                        controllerCategory.clear();
-                        controllerStatus.clear();
                         controllerValue.clear();
                         controllerTelephone.clear();
                         controllerEmail.clear();
@@ -200,6 +222,89 @@ class AnnouncementPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildDropDownField({
+    required String label,
+    required String value,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: label,
+          filled: true,
+          fillColor: Color.fromARGB(255, 211, 211, 211),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 249, 248, 248), // Cor das bordas
+            ),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(value),
+            Icon(Icons.arrow_drop_down),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showCategoryPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          child: ListView.builder(
+            itemCount: AnnouncementController.categoriasDisponiveis.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title:
+                    Text(AnnouncementController.categoriasDisponiveis[index]),
+                onTap: () {
+                  setState(() {
+                    selectedCategory =
+                        AnnouncementController.categoriasDisponiveis[index];
+                  });
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _showStatusPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          child: ListView.builder(
+            itemCount: AnnouncementController.statusDisponiveis.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(AnnouncementController.statusDisponiveis[index]),
+                onTap: () {
+                  setState(() {
+                    selectedStatus =
+                        AnnouncementController.statusDisponiveis[index];
+                  });
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
