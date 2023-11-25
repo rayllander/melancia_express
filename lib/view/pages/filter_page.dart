@@ -29,25 +29,36 @@ class _FilterPageState extends State<FilterPage> {
                   title: 'CATEGORIAS',
                   options: [
                     'Sem semente',
-                    'Amarela',
-                    'Categoria 3',
-                    'Categoria 4'
+                    'Polpa Amarela',
+                    'Polpa Vermelha',
+                    'Polpa Branca'
                   ],
                   selectedOptions: selectedCategories,
                 ),
-                FilterSection(
-                  title: 'PREÇOS',
-                  options: ['1,00', '15,00', '2,50', '5,80'],
-                  selectedOptions: selectedPrices,
-                ),
+                //   FilterSection(
+                //    title: 'PREÇOS',
+                //    options: [
+                //      '0,00 a 2,30',
+                //     '2,31 a 2,50',
+                //     '2,51 a 2,80',
+                //      '2,81 a 3,00'
+                //    ],
+                //    selectedOptions: selectedPrices,
+                //  ),
                 FilterSection(
                   title: 'STATUS',
-                  options: ['Ativo', 'Inativo'],
+                  options: [
+                    'Plantio',
+                    'Crescimento',
+                    'Colheira 1ª Panha',
+                    'Colheita 2ª Panha',
+                    'Colheita 3ª Panha'
+                  ],
                   selectedOptions: selectedStatus,
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.all(65.0),
+                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 100),
                   child: MyButton(
                     onTapButton: () {
                       // Realizar a ação desejada com as opções selecionadas
@@ -56,6 +67,13 @@ class _FilterPageState extends State<FilterPage> {
                       // print('Status selecionados: $selectedStatus');
                     },
                     buttonText: 'SALVAR',
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 100),
+                  child: MyButton(
+                    onTapButton: () {},
+                    buttonText: 'Buscar',
                   ),
                 ),
               ],
