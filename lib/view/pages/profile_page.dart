@@ -19,10 +19,6 @@ class ProfilePage extends StatelessWidget {
     return FutureBuilder<ParseUser?>(
       future: getUser(),
       builder: (context, snapshot) {
-        // Restante do código permanece inalterado
-        // ...
-
-        // Substitua o código existente que usa snapshot.data pelo resultado da função getUser()
         var username = (snapshot.data != null)
             ? snapshot.data!.get<String>('username')
             : 'Usuário não encontrado';

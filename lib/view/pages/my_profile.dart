@@ -22,7 +22,7 @@ class _MyPerfilState extends State<MyPerfil> {
   @override
   void initState() {
     super.initState();
-    // Inicialize os controladores com os dados do usuário atual
+
     initializeControllers();
   }
 
@@ -38,18 +38,17 @@ class _MyPerfilState extends State<MyPerfil> {
           text: currentUser?.get<int>('telefone')?.toString() ?? '');
       controllerEmail =
           TextEditingController(text: currentUser?.get<String>('email') ?? '');
-      controllerPass = TextEditingController(); // A senha não deve ser exibida
+      controllerPass = TextEditingController();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Verifique se os controladores foram inicializados antes de construir o widget
     if (controllerUserName == null ||
         controllerTelefone == null ||
         controllerEmail == null ||
         controllerPass == null) {
-      return CircularProgressIndicator(); // ou qualquer indicador de carregamento que você preferir
+      return CircularProgressIndicator();
     }
 
     return Scaffold(

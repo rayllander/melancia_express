@@ -173,4 +173,27 @@ class AnnouncementController {
       return [];
     }
   }
+
+//função em testes:
+  Future<List<ParseObject>> getFilteredAnnouncements(
+      String categoria, String status) async {
+    try {
+      var queryBuilder = QueryBuilder(ParseObject('Anuncio'))
+        ..whereEqualTo('categoria', categoria)
+        ..whereEqualTo('status', status);
+
+      var response = await queryBuilder.query();
+
+      if (response.success && response.results != null) {
+        return response.results as List<ParseObject>;
+      }
+
+      return [];
+    } catch (e) {
+      print('Erro ao obter os anúncios filtrados: $e');
+      return [];
+    }
+  }
+
+  searchAnnouncementsByCategory(String searchTerm) {}
 }

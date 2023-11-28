@@ -19,6 +19,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  Future<void> _refreshAnnouncements() async {
+    await widget.announcementController.getAllAnnouncements();
+    setState(() {});
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.atEdge &&
+        _scrollController.position.pixels == 0) {
+      _refreshAnnouncements();
+    }
+  }
+
   void goToSearchResults(BuildContext context) async {
     final searchTerm = widget.searchController.text.toLowerCase().trim();
 
@@ -110,43 +131,53 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: FutureBuilder<List<ParseObject>>(
-          future: widget.announcementController.getAllAnnouncements(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text('Erro ao carregar anúncios'),
-              );
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(
-                child: Text('Nenhum anúncio encontrado'),
-              );
-            } else {
-              List<ParseObject> announcements = snapshot.data!;
-              return CustomScrollView(
-                slivers: <Widget>[
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return AnnouncementItem(
-                          key: ValueKey(index),
-                          announcement: announcements[index],
-                        );
-                      },
-                      childCount: announcements.length,
+        body: RefreshIndicator(
+          onRefresh: _refreshAnnouncements,
+          child: FutureBuilder<List<ParseObject>>(
+            future: widget.announcementController.getAllAnnouncements(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Erro ao carregar anúncios'),
+                );
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text('Nenhum anúncio encontrado'),
+                );
+              } else {
+                List<ParseObject> announcements = snapshot.data!;
+                return CustomScrollView(
+                  controller: _scrollController,
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return AnnouncementItem(
+                            key: ValueKey(index),
+                            announcement: announcements[index],
+                          );
+                        },
+                        childCount: announcements.length,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }
-          },
+                  ],
+                );
+              }
+            },
+          ),
         ),
         bottomNavigationBar: MyBottomBar(),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

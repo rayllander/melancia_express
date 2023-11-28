@@ -21,13 +21,11 @@ class ForgotPage extends StatelessWidget {
         return;
       }
 
-      // Criar uma instância de ParseUser
       ParseUser user = ParseUser(null, null, controllerEmail.text);
 
       // Solicitar redefinição de senha
       await user.requestPasswordReset();
 
-      // Adicione aqui sua lógica de sucesso, por exemplo, mostrar uma mensagem ao usuário
       displayMessage(
           'Solicitação de redefinição de senha enviada com sucesso. Um email foi enviado para a redefinição!',
           context,

@@ -26,6 +26,6 @@ class SearchResultsPage extends StatelessWidget {
               );
             },
           )
-        : Container(); // Retorna um container vazio se não houver resultados
+        : Container();
   }
 }

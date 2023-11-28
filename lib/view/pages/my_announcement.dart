@@ -13,7 +13,8 @@ class MyAnnouncement extends StatefulWidget {
 }
 
 class _MyAnnouncementState extends State<MyAnnouncement> {
-  final AnnouncementController _announcementController = AnnouncementController();
+  final AnnouncementController _announcementController =
+      AnnouncementController();
   List<ParseObject> _userAnnouncements = [];
 
   @override
@@ -34,7 +35,8 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
   }
 
   Future<void> _deleteAnnouncement(String announcementId) async {
-    final success = await _announcementController.deleteAnnouncement(announcementId);
+    final success =
+        await _announcementController.deleteAnnouncement(announcementId);
     if (success) {
       _loadUserAnnouncements();
     } else {
@@ -45,11 +47,11 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
   Future<void> _navigateToEditAnnouncement(String announcementId) async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditAnnouncement(announcementId: announcementId)),
+      MaterialPageRoute(
+          builder: (context) =>
+              EditAnnouncement(announcementId: announcementId)),
     );
 
-    // Atualize a lista apenas se a tela de edição retornar algum resultado,
-    // por exemplo, se o usuário salvar as alterações
     if (result != null) {
       _loadUserAnnouncements();
     }
@@ -80,7 +82,8 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Excluir Anúncio'),
-                          content: Text('Deseja realmente excluir este anúncio?'),
+                          content:
+                              Text('Deseja realmente excluir este anúncio?'),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -93,7 +96,9 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                                 ),
                               ),
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
                                 side: MaterialStateProperty.all<BorderSide>(
                                   BorderSide(color: Colors.red),
                                 ),
@@ -111,7 +116,9 @@ class _MyAnnouncementState extends State<MyAnnouncement> {
                                 ),
                               ),
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.red),
                                 side: MaterialStateProperty.all<BorderSide>(
                                   BorderSide(color: Colors.red),
                                 ),

@@ -83,7 +83,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       MyButton(
                         buttonText: 'SALVAR',
                         onTapButton: () async {
-                          // Cria uma instância do UserModel com os dados do formulário
                           UserModel newUser = UserModel(
                             username: controllerUserName.text,
                             telefone:
@@ -92,25 +91,21 @@ class _RegisterPageState extends State<RegisterPage> {
                             password: controllerPass.text,
                           );
 
-                          // Imprima os valores para debug
                           print('Username: ${newUser.username}');
                           print('Telefone: ${newUser.telefone}');
                           print('Email: ${newUser.email}');
                           print('Senha: ${newUser.password}');
 
-                          // Chama o método signUp do UserController
                           bool registrationSuccess =
                               await UserController().signUp(newUser);
 
                           if (registrationSuccess) {
-                            // Registro bem-sucedido, exibe mensagem ou navega para outra tela
                             displayMessage(
                                 'Registrado com sucesso, ative a conta no email!',
                                 context,
                                 onButtonPressed: () {},
                                 buttonText: '');
                           } else {
-                            // Registro falhou, exibe mensagem de erro ou realiza ações apropriadas
                             displayMessage('Erro ao registrar usuário', context,
                                 onButtonPressed: () {}, buttonText: '');
                           }
