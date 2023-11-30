@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -47,10 +49,13 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
         setState(() {
           controllerCategory.text = announcementToEdit.get('categoria') ?? '';
           controllerDatetime.text = DateFormat('dd/MM/yyyy').format(
-              announcementToEdit.get<DateTime>('data_colheita') ?? DateTime.now());
+              announcementToEdit.get<DateTime>('data_colheita') ??
+                  DateTime.now());
           controllerStatus.text = announcementToEdit.get('status') ?? '';
-          controllerValue.text = announcementToEdit.get<double>('preco')?.toString() ?? '';
-          controllerTelephone.text = announcementToEdit.get<int>('telefone')?.toString() ?? '';
+          controllerValue.text =
+              announcementToEdit.get<double>('preco')?.toString() ?? '';
+          controllerTelephone.text =
+              announcementToEdit.get<int>('telefone')?.toString() ?? '';
           controllerEmail.text = announcementToEdit.get('email') ?? '';
 
           var foto = announcementToEdit.get<ParseFileBase>('foto');
@@ -87,7 +92,8 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                     selectedImage = xFile;
                   });
                 },
-                imageUrl: imageUrl, // Passe a URL da imagem para o PhotoFieldEdit
+                imageUrl:
+                    imageUrl, // Passe a URL da imagem para o PhotoFieldEdit
               ),
               SizedBox(height: 20),
               MyEditTextField(
@@ -160,7 +166,45 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
     );
   }
 
-  void _saveAnnouncement() {
-    // Implemente a lógica para salvar o anúncio
+  void _saveAnnouncement() async {
+    try {
+      ParseObject announcement = ParseObject('Anuncio');
+
+      announcement.set('categoria', controllerCategory.text);
+      DateTime formattedDate =
+          DateFormat('dd/MM/yyyy').parse(controllerDatetime.text);
+      announcement.set<DateTime>('data_colheita', formattedDate);
+      announcement.set('status', controllerStatus.text);
+      announcement.set<double>(
+          'preco', double.tryParse(controllerValue.text) ?? 0.0);
+      announcement.set<int>(
+          'telefone', int.tryParse(controllerTelephone.text) ?? 0);
+      announcement.set('email', controllerEmail.text);
+
+      if (selectedImage != null) {
+        ParseFileBase imageFile = ParseFile(File(selectedImage!.path));
+        await imageFile.save();
+        announcement.set<ParseFileBase>('foto', imageFile);
+      }
+      announcement.objectId = widget.announcementId;
+
+      await announcement.save();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Alterações salvas com sucesso!'),
+        ),
+      );
+
+      // Se você quiser permanecer na mesma página sem navegar de volta
+    } catch (e) {
+      print('Erro ao salvar o anúncio: $e');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao salvar as alterações.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }
