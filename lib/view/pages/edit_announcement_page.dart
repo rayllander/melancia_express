@@ -20,6 +20,8 @@ class EditAnnouncement extends StatefulWidget {
 }
 
 class _EditAnnouncementState extends State<EditAnnouncement> {
+  String? selectedCategory;
+  String? selectedStatus;
   TextEditingController controllerCategory = TextEditingController();
   TextEditingController controllerDatetime = TextEditingController();
   TextEditingController controllerStatus = TextEditingController();
@@ -29,7 +31,23 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
   DateTime? selectedDate;
   XFile? selectedImage;
   String? imageUrl;
+  final List<String> statusOptions = [
+    'Plantio',
+    'Crescimento',
+    'Colheita 1ª Panha',
+    'Colheita 2ª Panha',
+    'Colheita 3ª Panha',
+  ];
 
+  // Opções para o campo Categoria
+  final List<String> categoryOptions = [
+    'Sem semente',
+    'Polpa Amarela',
+    'Polpa Vermelha',
+    'Polpa Branca',
+    'Pretinha',
+    'Tradicional'
+  ];
   @override
   void initState() {
     super.initState();
@@ -44,9 +62,10 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
         orElse: () => ParseObject('Anuncio'),
       );
 
-      // ignore: unnecessary_null_comparison
       if (announcementToEdit != null) {
         setState(() {
+          selectedCategory = announcementToEdit.get('categoria') ?? '';
+          selectedStatus = announcementToEdit.get('status') ?? '';
           controllerCategory.text = announcementToEdit.get('categoria') ?? '';
           controllerDatetime.text = DateFormat('dd/MM/yyyy').format(
               announcementToEdit.get<DateTime>('data_colheita') ??
@@ -92,14 +111,31 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                     selectedImage = xFile;
                   });
                 },
-                imageUrl:
-                    imageUrl, // Passe a URL da imagem para o PhotoFieldEdit
+                imageUrl: imageUrl,
               ),
               SizedBox(height: 20),
-              MyEditTextField(
-                hintText: 'Categoria',
-                obscureText: false,
-                controller: controllerCategory,
+              DropdownButtonFormField<String>(
+                value: selectedCategory,
+                items: categoryOptions.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedCategory = newValue ?? '';
+                  });
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                  filled: true,
+                  fillColor: Color(0xFFD9D9D9), // Cor cinza
+                  border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 98, 215, 56)),
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               GestureDetector(
@@ -126,10 +162,27 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                 ),
               ),
               SizedBox(height: 20),
-              MyEditTextField(
-                hintText: 'Status',
-                obscureText: false,
-                controller: controllerStatus,
+              DropdownButtonFormField<String>(
+                value: selectedStatus,
+                items: statusOptions.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedStatus = newValue;
+                  });
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                  filled: true,
+                  fillColor: Color(0xFFD9D9D9),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               MyEditTextField(
@@ -170,11 +223,21 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
     try {
       ParseObject announcement = ParseObject('Anuncio');
 
-      announcement.set('categoria', controllerCategory.text);
+      // Adicionando prints para depuração
+      print('Selected Category: $selectedCategory');
+      print('Selected Status: $selectedStatus');
+
+      // Certifique-se de que selectedCategory e selectedStatus não são nulos ou vazios
+      if (selectedCategory == null || selectedStatus == null) {
+        print('Selected Category or Status is null or empty. Aborting save.');
+        return;
+      }
+
+      announcement.set('categoria', selectedCategory);
       DateTime formattedDate =
           DateFormat('dd/MM/yyyy').parse(controllerDatetime.text);
       announcement.set<DateTime>('data_colheita', formattedDate);
-      announcement.set('status', controllerStatus.text);
+      announcement.set('status', selectedStatus);
       announcement.set<double>(
           'preco', double.tryParse(controllerValue.text) ?? 0.0);
       announcement.set<int>(
@@ -186,16 +249,22 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
         await imageFile.save();
         announcement.set<ParseFileBase>('foto', imageFile);
       }
+
       announcement.objectId = widget.announcementId;
 
       await announcement.save();
+
+      // Atualize os valores selecionados para que eles permaneçam após salvar
+      setState(() {
+        selectedCategory = announcement.get<String>('categoria') ?? '';
+        selectedStatus = announcement.get<String>('status') ?? '';
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Alterações salvas com sucesso!'),
         ),
       );
-
-      // Se você quiser permanecer na mesma página sem navegar de volta
     } catch (e) {
       print('Erro ao salvar o anúncio: $e');
 

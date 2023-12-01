@@ -87,7 +87,9 @@ class _FilterPageState extends State<FilterPage> {
                           'Sem semente',
                           'Polpa Amarela',
                           'Polpa Vermelha',
-                          'Polpa Branca'
+                          'Polpa Branca',
+                          'Pretinha',
+                          'Tradicional'
                         ],
                         selectedCategory,
                         (value) {
@@ -124,7 +126,7 @@ class _FilterPageState extends State<FilterPage> {
                         [
                           'Plantio',
                           'Crescimento',
-                          'Colheira 1ª Panha',
+                          'Colheita 1ª Panha',
                           'Colheita 2ª Panha',
                           'Colheita 3ª Panha'
                         ],

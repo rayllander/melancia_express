@@ -12,8 +12,8 @@ class AnnouncementController {
   static const List<String> categoriasDisponiveis = [
     'Sem semente',
     'Polpa Amarela',
-    'Poupa Vermelha',
-    'Poupa Branca',
+    'Polpa Vermelha',
+    'Polpa Branca',
     'Pretinha',
     'Tradicional',
   ];
